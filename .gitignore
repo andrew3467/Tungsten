@@ -34,6 +34,8 @@
 
 # Folders
 .idea
+build
+cmake-build-debug
 bin
 Sandbox/bin
 Sandbox/Wolframite
