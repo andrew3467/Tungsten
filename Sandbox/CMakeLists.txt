@@ -5,6 +5,9 @@ project(Sandbox)
 
 set(${CMAKE_BINARY_DIR} ${CMAKE_SOURCE_DIR}/../bin)
 
+
+#Wolframite
+add_subdirectory(${CMAKE_SOURCE_DIR}/../Wolframite ${CMAKE_SOURCE_DIR}/Wolframite)
 include_directories(${CMAKE_SOURCE_DIR}/../Wolframite/src)
 
 
@@ -22,4 +25,9 @@ file(GLOB_RECURSE PRJ_SRC
 add_executable(Sandbox
         ${PRJ_HEADERS}
         ${PRJ_SRC}
+)
+
+target_link_libraries(Sandbox
+        PUBLIC
+        Wolframite
 )

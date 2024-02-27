@@ -1,0 +1,3 @@
+[submodule "Wolframite/external/spdlog"]
+	path = Wolframite/external/spdlog
+	url = https://github.com/gabime/spdlog.git

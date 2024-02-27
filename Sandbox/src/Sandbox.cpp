@@ -2,11 +2,18 @@
 // Created by Andrew Graser on 2/26/2024.
 //
 
-#include "Test.h"
+#include "Wolframite/Core/Log.h"
+
+
 
 
 int main() {
-    Test::Print("Testing");
+    //Move to entry point
+    Tungsten::Log::Init();
+ q  
+
+    TUNGSTEN_CORE_INFO("Print: {0}", 10);
+    TUNGSTEN_CORE_FATAL("FATAL");
 
     return 0;
 }
