@@ -1,3 +1,6 @@
 [submodule "Wolframite/external/spdlog"]
 	path = Wolframite/external/spdlog
 	url = https://github.com/gabime/spdlog.git
+[submodule "Wolframite/external/glfw"]
+	path = Wolframite/external/glfw
+	url = https://github.com/glfw/glfw.git

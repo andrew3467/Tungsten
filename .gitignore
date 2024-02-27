@@ -36,3 +36,5 @@
 .idea
 bin
 Sandbox/bin
+Sandbox/Wolframite
+Sandbox/Wolframite/cmake_install.cmake

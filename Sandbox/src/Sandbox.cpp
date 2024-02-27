@@ -2,18 +2,19 @@
 // Created by Andrew Graser on 2/26/2024.
 //
 
-#include "Wolframite/Core/Log.h"
+#include "Wolframite/Tungsten.h"
 
+class Sandbox : public Tungsten::Application {
+public:
+    Sandbox() {
+        TUNGSTEN_CORE_INFO("Creating Sandbox");
+    }
 
+    ~Sandbox() override {
 
+    }
+};
 
-int main() {
-    //Move to entry point
-    Tungsten::Log::Init();
- q  
-
-    TUNGSTEN_CORE_INFO("Print: {0}", 10);
-    TUNGSTEN_CORE_FATAL("FATAL");
-
-    return 0;
+Tungsten::Application* CreateApplication() {
+    return new Sandbox;
 }

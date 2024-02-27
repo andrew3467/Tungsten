@@ -8,6 +8,12 @@ project(Wolframite)
 add_subdirectory(external/spdlog)
 include_directories(external/spdlog/include)
 
+#GLFW
+add_subdirectory(external/glfw)
+include_directories(external/glfw/include)
+
+#Tell glfw not to include OpenGL
+add_compile_definitions(GLFW_INCLUDE_NONE)
 
 
 
@@ -28,9 +34,19 @@ file(GLOB_RECURSE PRJ_SRC
 add_library(Wolframite
         src/Wolframite/Core/Log.cpp
         src/Wolframite/Core/Log.h
+        src/Wolframite/Core/Window.h
+        src/Platform/Windows/WindowsWindow.h
+        src/Platform/Windows/WindowsWindow.cpp
+        src/Application.h
+        src/Application.cpp
+        src/Wolframite/Tungsten.h
+        src/Wolframite/Core/Core.h
+        src/Wolframite/Layer.h
+        src/Wolframite/LayerStack.h
 )
 
 target_link_libraries(Wolframite
         PUBLIC
         spdlog::spdlog
+        glfw
 )

@@ -42,3 +42,8 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("D:/dev/Tungsten/Sandbox/Wolframite/external/spdlog/cmake_install.cmake")
 endif()
 
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("D:/dev/Tungsten/Sandbox/Wolframite/external/glfw/cmake_install.cmake")
+endif()
+
