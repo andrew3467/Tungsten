@@ -7,4 +7,16 @@
 
 namespace Tungsten {
 
+    LayerStack::LayerStack() {
+
+    }
+
+    LayerStack::~LayerStack() {
+
+    }
+
+    void LayerStack::PushLayer(Layer *layer) {
+        mLayers.emplace(mLayers.begin() + mInsertIndex, layer);
+        mInsertIndex++;
+    }
 }

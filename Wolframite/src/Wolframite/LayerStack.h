@@ -6,6 +6,8 @@
 #define SANDBOX_LAYERSTACK_H
 
 
+#include <vector>
+#include <memory>
 #include "Layer.h"
 
 namespace Tungsten {
@@ -16,7 +18,15 @@ namespace Tungsten {
 
 
         void PushLayer(Layer* layer);
-        Layer* PopLayer();
+        Layer* PopLayer(Layer* layer);
+
+        std::vector<Layer*>::iterator begin() {return mLayers.begin();}
+        std::vector<Layer*>::iterator end() {return mLayers.end();}
+
+    private:
+        std::vector<Layer*> mLayers;
+
+        int mInsertIndex = 0;
     };
 }
 

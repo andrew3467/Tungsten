@@ -7,8 +7,8 @@
 
 
 #include <memory>
-#include <src/Wolframite/LayerStack.h>
 
+#include "Wolframite/LayerStack.h"
 #include "Wolframite/Core/Window.h"
 
 namespace Tungsten {
@@ -34,7 +34,7 @@ namespace Tungsten {
         bool mRunning = true;
 
         std::unique_ptr<Window> mWindow;
-        std::unique_ptr<LayerStack> mLayerStack;
+        LayerStack mLayerStack;
     };
 }
 

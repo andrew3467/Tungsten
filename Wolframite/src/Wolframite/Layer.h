@@ -6,16 +6,18 @@
 #define SANDBOX_LAYER_H
 
 
-class Layer {
-public:
-    virtual ~Layer() = default;
+namespace Tungsten {
+    class Layer {
+    public:
+        virtual ~Layer() = default;
 
-    virtual void OnStart() = 0;
-    virtual void OnUpdate() = 0;
-    virtual void OnRender() = 0;
+        virtual void OnStart() = 0;
+        virtual void OnUpdate() = 0;
+        virtual void OnRender() = 0;
 
-    virtual void OnImguiRender() = 0;
-};
+        virtual void OnImguiRender() = 0;
+    };
+}
 
 
 #endif //SANDBOX_LAYER_H

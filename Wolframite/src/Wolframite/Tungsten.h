@@ -7,6 +7,7 @@
 
 
 #include "Application.h"
+#include "Layer.h"
 
 #include "Wolframite/Core/Log.h"
 

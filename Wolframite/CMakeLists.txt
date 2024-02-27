@@ -1,7 +1,9 @@
-cmake_minimum_required(VERSION 3.27)
+cmake_minimum_required(VERSION 3.26)
 set(CMAKE_CXX_STANDARD 23)
 
 project(Wolframite)
+
+set(${CMAKE_BINARY_DIR} ${CMAKE_SOURCE_DIR}/../bin)
 
 
 #SPDlog
@@ -43,6 +45,7 @@ add_library(Wolframite
         src/Wolframite/Core/Core.h
         src/Wolframite/Layer.h
         src/Wolframite/LayerStack.h
+        src/Wolframite/LayerStack.cpp
 )
 
 target_link_libraries(Wolframite

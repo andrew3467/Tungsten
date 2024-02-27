@@ -17,12 +17,23 @@ namespace Tungsten {
         mInstance = this;
 
         mWindow = std::unique_ptr<Window>(Window::Create());
-        mLayerStack = std::make_unique<LayerStack>();
     }
 
     void Application::Run() {
         while (mRunning){
             glfwPollEvents();
+
+            for(auto layer : mLayerStack){
+                layer->OnUpdate();
+                layer->OnRender();
+
+                //layer->OnImguiRender();
+            }
+
         }
+    }
+
+    void Application::PushLayer(Layer *layer) {
+        mLayerStack.PushLayer(layer);
     }
 }
