@@ -6,7 +6,7 @@
 #define TUNGSTEN_EVENT_H
 
 
-#include <src/Wolframite/Core/Core.h>
+#include "Wolframite/Core/Core.h"
 
 #include <string>
 #include <functional>

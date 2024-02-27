@@ -15,12 +15,8 @@ public:
 
     }
 
-    void OnStart() override {
-
-    }
-
     void OnUpdate() override {
-        TUNGSTEN_CORE_INFO("Wolfy is dumb");
+
     }
 
     void OnRender() override {
@@ -36,7 +32,7 @@ public:
 class Sandbox : public Tungsten::Application {
 public:
     Sandbox() {
-        PushLayer(new ExampleLayer());
+        PushLayer(new ExampleLayer);
     }
 
     ~Sandbox() override {

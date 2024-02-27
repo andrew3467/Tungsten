@@ -5,17 +5,21 @@
 #ifndef SANDBOX_LAYER_H
 #define SANDBOX_LAYER_H
 
+#include "Wolframite/Events/Event.h"
+
 
 namespace Tungsten {
     class Layer {
     public:
         virtual ~Layer() = default;
 
-        virtual void OnStart() = 0;
-        virtual void OnUpdate() = 0;
-        virtual void OnRender() = 0;
+        virtual void OnStart() {};
+        virtual void OnUpdate() {};
+        virtual void OnRender() {};
 
-        virtual void OnImguiRender() = 0;
+        virtual void OnEvent(Event &e) {};
+
+        virtual void OnImguiRender() {};
     };
 }
 

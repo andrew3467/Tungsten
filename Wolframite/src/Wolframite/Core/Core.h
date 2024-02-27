@@ -13,4 +13,7 @@
 #define TUNGSTEN_ASSERT(x, ...) {if(!(x)) {TUNGSTEN_ERROR("Assertion failed: {0}", __VA_ARGS__);}}
 #define TUNGSTEN_CORE_ASSERT(x, ...) {if(!(x)) {TUNGSTEN_CORE_ERROR("Assertion failed: {0}", __VA_ARGS__);}}
 
+#define BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
+
+
 #endif //SANDBOX_CORE_H

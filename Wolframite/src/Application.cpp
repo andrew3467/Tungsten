@@ -2,9 +2,11 @@
 // Created by Andrew Graser on 2/26/2024.
 //
 
-#include <src/Wolframite/Core/Log.h>
-#include <src/Wolframite/Core/Core.h>
+#include "Wolframite/Core/Log.h"
+#include "Wolframite/Core/Core.h"
+
 #include <GLFW/glfw3.h>
+#include <Wolframite/Events/ApplicationEvent.h>
 #include "Application.h"
 
 namespace Tungsten {
@@ -17,6 +19,7 @@ namespace Tungsten {
         mInstance = this;
 
         mWindow = std::unique_ptr<Window>(Window::Create());
+        mWindow->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
     }
 
     void Application::Run() {
@@ -35,5 +38,23 @@ namespace Tungsten {
 
     void Application::PushLayer(Layer *layer) {
         mLayerStack.PushLayer(layer);
+    }
+
+    void Application::OnEvent(Event &e) {
+        EventDispatcher dispatcher(e);
+        dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClosed));
+
+        for(auto it = mLayerStack.end(); it != mLayerStack.begin(); ){
+            (*--it)->OnEvent(e);
+            if(e.Handled){
+                break;
+            }
+        }
+    }
+
+    bool Application::OnWindowClosed(WindowCloseEvent &e) {
+        mRunning = false;
+
+        return true;
     }
 }

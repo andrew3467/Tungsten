@@ -10,6 +10,7 @@
 
 #include "Wolframite/LayerStack.h"
 #include "Wolframite/Core/Window.h"
+#include "Wolframite/Events/ApplicationEvent.h"
 
 namespace Tungsten {
     class Application {
@@ -19,12 +20,16 @@ namespace Tungsten {
 
         void Run();
 
+        void OnEvent(Event &e);
 
         void PushLayer(Layer* layer);
 
 
 
         static Application* GetInstance() {return mInstance;}
+
+    private:
+        bool OnWindowClosed(WindowCloseEvent &e);
 
     private:
         static Application* mInstance;

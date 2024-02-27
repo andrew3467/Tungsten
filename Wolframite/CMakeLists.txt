@@ -20,7 +20,7 @@ add_compile_definitions(GLFW_INCLUDE_NONE)
 
 
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+include_directories(src)
 
 file(GLOB_RECURSE PRJ_HEADERS
         ${CMAKE_SOURCE_DIR}/*.h
@@ -37,8 +37,8 @@ add_library(Wolframite
         src/Wolframite/Core/Log.cpp
         src/Wolframite/Core/Log.h
         src/Wolframite/Core/Window.h
-        src/Platform/Windows/WindowsWindow.h
-        src/Platform/Windows/WindowsWindow.cpp
+        src/Wolframite/Platform/Windows/WindowsWindow.h
+        src/Wolframite/Platform/Windows/WindowsWindow.cpp
         src/Application.h
         src/Application.cpp
         src/Wolframite/Tungsten.h

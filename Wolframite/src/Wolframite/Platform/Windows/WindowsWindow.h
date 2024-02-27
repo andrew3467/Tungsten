@@ -5,7 +5,8 @@
 #ifndef SANDBOX_WINDOWSWINDOW_H
 #define SANDBOX_WINDOWSWINDOW_H
 
-#include "src/Wolframite/Core/Window.h"
+
+#include "Wolframite/Core/Window.h"
 
 
 #include <GLFW/glfw3.h>
@@ -19,6 +20,11 @@ namespace Tungsten {
 
         inline uint32_t GetWidth() const override {return mData.Width;}
         inline uint32_t GetHeight() const override {return mData.Height;}
+
+        inline void SetEventCallback(const EventCallbackFn &callback) override {
+            mData.EventCallback = callback;
+        }
+
 
         void OnUpdate() override;
 
@@ -37,6 +43,8 @@ namespace Tungsten {
             std::string Title;
 
             bool VSync;
+
+            EventCallbackFn EventCallback;
         } mData;
     };
 }
