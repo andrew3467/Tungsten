@@ -46,6 +46,10 @@ add_library(Wolframite
         src/Wolframite/Layer.h
         src/Wolframite/LayerStack.h
         src/Wolframite/LayerStack.cpp
+        src/Wolframite/Events/MouseEvent.h
+        src/Wolframite/Events/Event.h
+        src/Wolframite/Events/KeyEvent.h
+        src/Wolframite/Events/ApplicationEvent.h
 )
 
 target_link_libraries(Wolframite
