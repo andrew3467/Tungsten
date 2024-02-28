@@ -48,6 +48,9 @@ namespace Tungsten {
         mIndexBuffer.reset(IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 
         mShader.reset(Shader::Create("../../Wolframite/src/Shaders/Basic_Unlit.glsl"));
+
+        mShader->Bind();
+        mShader->SetUniformFloat4("uColor", glm::vec4(1.0f, 1.0f, 0.0f, 1.0f));
     }
 
     void Application::Run() {

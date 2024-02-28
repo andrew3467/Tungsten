@@ -7,6 +7,7 @@
 #include <Glad/glad.h>
 #include <fstream>
 #include <Wolframite/Core/Log.h>
+#include <glm/gtc/type_ptr.hpp>
 
 
 #define SHADER_VERTEX_PREPROCESSOR "#Vertex"
@@ -185,5 +186,49 @@ namespace Tungsten {
 
     void OpenGLShader::Unbind() {
         glUseProgram(0);
+    }
+
+    int OpenGLShader::GetLocation(const std::string &name) {
+        return glGetUniformLocation(mRendererID, name.c_str());
+    }
+
+    void OpenGLShader::SetUniformInt(const std::string &name, int v) {
+        glUniform1i(GetLocation(name), v);
+    }
+
+    void OpenGLShader::SetUniformInt2(const std::string &name, const glm::ivec2& v) {
+        glUniform2i(GetLocation(name), v.x, v.y);
+    }
+
+    void OpenGLShader::SetUniformInt3(const std::string &name, const glm::ivec3& v) {
+        glUniform3i(GetLocation(name), v.x, v.y, v.z);
+    }
+
+    void OpenGLShader::SetUniformInt4(const std::string &name, const glm::ivec4& v) {
+        glUniform4i(GetLocation(name), v.x, v.y, v.z, v.w);
+    }
+
+    void OpenGLShader::SetUniformFloat(const std::string &name, float v) {
+        glUniform1f(GetLocation(name), v);
+    }
+
+    void OpenGLShader::SetUniformFloat2(const std::string &name, const glm::vec2& v) {
+        glUniform2f(GetLocation(name), v.x, v.y);
+    }
+
+    void OpenGLShader::SetUniformFloat3(const std::string &name, const glm::vec3& v) {
+        glUniform3f(GetLocation(name), v.x, v.y, v.z);
+    }
+
+    void OpenGLShader::SetUniformFloat4(const std::string &name, const glm::vec4& v) {
+        glUniform4f(GetLocation(name), v.x, v.y, v.z, v.w);
+    }
+
+    void OpenGLShader::SetUniformMat3(const std::string &name, const glm::mat3& v) {
+        glUniformMatrix3fv(GetLocation(name), 1, GL_FALSE, glm::value_ptr(v));
+    }
+
+    void OpenGLShader::SetUniformMat4(const std::string &name, const glm::mat4& v) {
+        glUniformMatrix4fv(GetLocation(name), 1, GL_FALSE, glm::value_ptr(v));
     }
 }

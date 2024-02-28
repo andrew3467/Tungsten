@@ -23,6 +23,11 @@ file(GLOB_RECURSE GLAD_SRC external/glad/*)
 include_directories(external/glad/include)
 
 
+#GLM
+add_subdirectory(external/glm)
+include_directories(external/glm)
+
+
 
 
 include_directories(src)
@@ -74,4 +79,5 @@ target_link_libraries(Wolframite
         PUBLIC
         spdlog::spdlog
         glfw
+        glm
 )

@@ -20,6 +20,8 @@ in vec3 vPosition;
 
 layout (location = 0) out vec4 FragColor;
 
+uniform vec4 uColor;
+
 void main() {
-    FragColor = vec4((vPosition + 1.0) / 2.0, 1.0);
+    FragColor = uColor;
 }
