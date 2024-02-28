@@ -32,6 +32,8 @@ namespace Tungsten {
         void SetVSync(bool enabled) override;
         bool IsVSync() const override;
 
+        virtual void* GetNativeWindow() const override;
+
     private:
         void Init(const WindowProps& props);
         void Shutdown();

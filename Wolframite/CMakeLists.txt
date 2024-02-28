@@ -76,6 +76,9 @@ add_library(Wolframite
         src/Wolframite/Renderer/Camera.h
         src/Wolframite/Renderer/Camera.cpp
         src/Wolframite/Core/Input.h
+        src/Wolframite/Platform/Windows/WindowsInput.cpp
+        src/Wolframite/Core/KeyCodes.h
+        src/Wolframite/Core/MouseButtonCodes.h
 )
 
 target_link_libraries(Wolframite

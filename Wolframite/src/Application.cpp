@@ -10,6 +10,8 @@
 #include <GLFW/glfw3.h>
 #include <Glad/glad.h>
 #include <Wolframite/Renderer/Shader.h>
+#include <Wolframite/Core/Input.h>
+#include <Wolframite/Core/KeyCodes.h>
 
 
 namespace Tungsten {
@@ -57,32 +59,38 @@ namespace Tungsten {
 
     void Application::Run() {
         while (mRunning){
+            float time = (float)glfwGetTime();
+            Timestep timestep = time - mLastFrameTime;
+            mLastFrameTime = time;
+
             //Input Polling
-            /*
             if(Tungsten::Input::IsKeyPressed(TUNGSTEN_KEY_A)){
-                mCameraPosition.x -= mCameraMoveSpeed * ts;
+                mCameraPosition.x -= mCameraMoveSpeed * timestep;
             }
 
             if(Tungsten::Input::IsKeyPressed(TUNGSTEN_KEY_D)){
-                mCameraPosition.x += mCameraMoveSpeed * ts;
+                mCameraPosition.x += mCameraMoveSpeed * timestep;
             }
 
             if(Tungsten::Input::IsKeyPressed(TUNGSTEN_KEY_S)){
-                mCameraPosition.y -= mCameraMoveSpeed * ts;
+                mCameraPosition.y -= mCameraMoveSpeed * timestep;
             }
 
             if(Tungsten::Input::IsKeyPressed(TUNGSTEN_KEY_W)){
-                mCameraPosition.y += mCameraMoveSpeed * ts;
+                mCameraPosition.y += mCameraMoveSpeed * timestep;
             }
 
             if(Tungsten::Input::IsKeyPressed(TUNGSTEN_KEY_LEFT)){
-                mCameraRotation += mCameraRotationSpeed * ts;
+                mCameraRotation += mCameraRotationSpeed * timestep;
             }
 
             if(Tungsten::Input::IsKeyPressed(TUNGSTEN_KEY_RIGHT)){
-                mCameraRotation -= mCameraRotationSpeed * ts;
+                mCameraRotation -= mCameraRotationSpeed * timestep;
             }
-            */
+
+            mCamera.SetPosition(mCameraPosition);
+            mCamera.SetRotation(mCameraRotation);
+            
 
             //TODO Move to rendererAPI
             glClear(GL_COLOR_BUFFER_BIT);
@@ -91,11 +99,14 @@ namespace Tungsten {
             //TODO MOVE TO SANDBOX
             mVertexArray->Bind();
             mShader->Bind();
+
+            mShader->SetUniformMat4("uViewProjection", mCamera.GetViewProjectionMatrix());
+
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
 
             for(auto layer : mLayerStack){
-                layer->OnUpdate();
+                layer->OnUpdate(timestep);
                 layer->OnRender();
 
                 //layer->OnImguiRender();

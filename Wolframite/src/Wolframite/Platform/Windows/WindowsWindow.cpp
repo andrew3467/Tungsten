@@ -164,5 +164,7 @@ namespace Tungsten {
         return mData.VSync;
     }
 
-
+    void *WindowsWindow::GetNativeWindow() const {
+        return mWindow;
+    }
 }

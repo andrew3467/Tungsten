@@ -6,7 +6,7 @@
 #define SANDBOX_LAYER_H
 
 #include "Wolframite/Events/Event.h"
-
+#include "Wolframite/Core/Timestep.h"
 
 namespace Tungsten {
     class Layer {
@@ -14,7 +14,7 @@ namespace Tungsten {
         virtual ~Layer() = default;
 
         virtual void OnStart() {};
-        virtual void OnUpdate() {};
+        virtual void OnUpdate(Timestep ts) {};
         virtual void OnRender() {};
 
         virtual void OnEvent(Event &e) {};

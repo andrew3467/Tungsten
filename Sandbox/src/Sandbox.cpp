@@ -15,7 +15,7 @@ public:
 
     }
 
-    void OnUpdate() override {
+    void OnUpdate(Tungsten::Timestep ts) override {
 
     }
 

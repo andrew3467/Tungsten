@@ -29,8 +29,8 @@ namespace Tungsten {
         void PushLayer(Layer* layer);
 
 
-
-        static Application* GetInstance() {return mInstance;}
+        inline Window& GetWindow() {return *mWindow;}
+        inline static Application& GetInstance() {return *mInstance;}
 
     private:
         bool OnWindowClosed(WindowCloseEvent &e);
@@ -45,8 +45,15 @@ namespace Tungsten {
         std::unique_ptr<Window> mWindow;
         LayerStack mLayerStack;
 
+        float mLastFrameTime = 0.0f;
+
 
         Camera mCamera;
+        glm::vec3 mCameraPosition = {0.0f, 0.0f, 0.0f};
+        float mCameraMoveSpeed = 2.5f;
+
+        float mCameraRotation = 0.0f;
+        float mCameraRotationSpeed = 180.0f;
 
         std::shared_ptr<Shader> mShader;
 
