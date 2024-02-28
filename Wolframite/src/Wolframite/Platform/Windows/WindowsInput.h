@@ -6,7 +6,7 @@
 #define SANDBOX_WINDOWSINPUT_H
 
 
-#include "Wolframite/Core/Input.h"
+#include "Wolframite/Input/Input.h"
 
 namespace Tungsten {
     class WindowsInput : public Input {

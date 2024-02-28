@@ -31,6 +31,10 @@ include_directories(external/glm)
 add_subdirectory(external/imgui)
 include_directories(external/imgui)
 
+#stb image
+file(GLOB_RECURSE STB_SRC external/stbimage/*)
+include_directories(external/stbimage/include)
+
 
 
 
@@ -49,6 +53,7 @@ file(GLOB_RECURSE PRJ_SRC
 
 add_library(Wolframite
         ${GLAD_SRC}
+        ${STB_SRC}
         src/Wolframite/Core/Log.cpp
         src/Wolframite/Core/Log.h
         src/Wolframite/Core/Window.h
@@ -79,10 +84,10 @@ add_library(Wolframite
         src/Wolframite/Renderer/Shader.cpp
         src/Wolframite/Renderer/Camera.h
         src/Wolframite/Renderer/Camera.cpp
-        src/Wolframite/Core/Input.h
+        src/Wolframite/Input/Input.h
         src/Wolframite/Platform/Windows/WindowsInput.cpp
-        src/Wolframite/Core/KeyCodes.h
-        src/Wolframite/Core/MouseButtonCodes.h
+        src/Wolframite/Input/KeyCodes.h
+        src/Wolframite/Input/MouseButtonCodes.h
         src/Wolframite/Renderer/Renderer.h
         src/Wolframite/Renderer/Renderer.cpp
         src/Wolframite/Renderer/RendererAPI.cpp
@@ -93,6 +98,11 @@ add_library(Wolframite
         src/Wolframite/ImGui/ImGuiBuild.cpp
         src/Wolframite/ImGui/ImGuiLayer.h
         src/Wolframite/ImGui/ImGuiLayer.cpp
+        src/Wolframite/Renderer/Texture.h
+        src/Wolframite/Renderer/Texture.cpp
+        src/Wolframite/Platform/OpenGL/OpenGLTexture.h
+        src/Wolframite/Platform/OpenGL/OpenGLTexture.cpp
+        src/Wolframite/Renderer/Texture.cpp
 )
 
 target_link_libraries(Wolframite

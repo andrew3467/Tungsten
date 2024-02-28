@@ -3,7 +3,8 @@
 //
 
 #include "Wolframite/Tungsten.h"
-#include "imgui.h"
+
+#include <imgui.h>
 
 
 class ExampleLayer : public Tungsten::Layer {
@@ -39,8 +40,10 @@ public:
 
         mShader.reset(Tungsten::Shader::Create("../../Wolframite/src/Shaders/Basic_Unlit.glsl"));
 
+        mTexture.reset(Tungsten::Texture2D::Create("../../assets/textures/marble_tiles_diff.jpg"));
+
         mShader->Bind();
-        mShader->SetUniformFloat4("uColor", glm::vec4(1.0f, 1.0f, 0.0f, 1.0f));
+        mShader->SetUniformInt("uTexture", 0);
     }
 
     ~ExampleLayer() {
@@ -83,6 +86,7 @@ public:
 
         Tungsten::Renderer::StartScene(mCamera);
 
+        mTexture->Bind();
         Tungsten::Renderer::Submit(mShader, mVertexArray);
 
         Tungsten::Renderer::EndScene();
@@ -103,6 +107,8 @@ private:
 
     float mCameraRotation = 0.0f;
     float mCameraRotationSpeed = 180.0f;
+
+    std::shared_ptr<Tungsten::Texture2D> mTexture;
 
     std::shared_ptr<Tungsten::Shader> mShader;
 

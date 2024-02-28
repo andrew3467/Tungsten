@@ -6,25 +6,25 @@ layout (location = 1) in vec2 aTexCoord;
 
 
 uniform mat4 uViewProjection;
+uniform mat4 uTransform;
 
+out vec2 vTexCoord;
 
-out vec3 vPosition;
 
 void main() {
-    vPosition = aPosition;
-    gl_Position = uViewProjection * vec4(aPosition, 1.0);
+    vTexCoord = aTexCoord;
+    gl_Position = uViewProjection * uTransform * vec4(aPosition, 1.0);
 }
 
 #Fragment
 #version 460 core
 
-
-in vec3 vPosition;
-
 layout (location = 0) out vec4 FragColor;
 
-uniform vec4 uColor;
+uniform sampler2D uTexture;
+
+in vec2 vTexCoord;
 
 void main() {
-    FragColor = uColor;
+    FragColor = texture(uTexture, vTexCoord);
 }

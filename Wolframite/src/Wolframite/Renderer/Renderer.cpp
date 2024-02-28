@@ -20,6 +20,7 @@ namespace Tungsten {
     void Renderer::Submit(std::shared_ptr<Shader> &shader, std::shared_ptr<VertexArray>& vertexArray) {
         shader->Bind();
         shader->SetUniformMat4("uViewProjection", mSceneData->ViewProjection);
+        shader->SetUniformMat4("uTransform", glm::mat4(1.0f));
 
         vertexArray->Bind();
         RenderCommand::DrawIndexed(vertexArray);

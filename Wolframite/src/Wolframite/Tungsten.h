@@ -11,11 +11,12 @@
 #include "Wolframite/Renderer/Camera.h"
 #include "Wolframite/Renderer/Renderer.h"
 #include "Wolframite/Renderer/RenderCommand.h"
+#include "Wolframite/Renderer/Texture.h"
 
 #include "Wolframite/Core/Log.h"
-#include "Wolframite/Core/Input.h"
-#include "Wolframite/Core/KeyCodes.h"
-#include "Wolframite/Core/MouseButtonCodes.h"
+#include "Wolframite/Input/Input.h"
+#include "Wolframite/Input/KeyCodes.h"
+#include "Wolframite/Input/MouseButtonCodes.h"
 
 //
 //  Entry Point
