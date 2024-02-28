@@ -11,15 +11,24 @@
 namespace Tungsten {
     class Layer {
     public:
+        Layer(const std::string &name = "Layer") : mDebugName(name) {
+
+        }
         virtual ~Layer() = default;
 
-        virtual void OnStart() {};
+        virtual void OnAttach() {}
+        virtual void OnDetach() {}
+
         virtual void OnUpdate(Timestep ts) {};
         virtual void OnRender() {};
+        virtual void OnImGuiRender() {};
 
         virtual void OnEvent(Event &e) {};
 
         virtual void OnImguiRender() {};
+
+    private:
+        std::string mDebugName;
     };
 }
 

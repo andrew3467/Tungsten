@@ -8,12 +8,6 @@
 #include <Wolframite/Events/ApplicationEvent.h>
 
 #include <GLFW/glfw3.h>
-#include <Glad/glad.h>
-#include <Wolframite/Renderer/Shader.h>
-#include <Wolframite/Core/Input.h>
-#include <Wolframite/Core/KeyCodes.h>
-#include <Wolframite/Renderer/RenderCommand.h>
-#include <Wolframite/Renderer/Renderer.h>
 
 
 namespace Tungsten {
@@ -27,6 +21,9 @@ namespace Tungsten {
 
         mWindow = std::unique_ptr<Window>(Window::Create());
         mWindow->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
+
+        mImGuiLayer = new ImGuiLayer();
+        PushLayer(mImGuiLayer);
     }
 
     void Application::Run() {
@@ -38,9 +35,13 @@ namespace Tungsten {
             for(auto layer : mLayerStack){
                 layer->OnUpdate(timestep);
                 layer->OnRender();
-
-                //layer->OnImguiRender();
             }
+
+            mImGuiLayer->Begin();
+            for(Layer* layer : mLayerStack){
+                layer->OnImguiRender();
+            }
+            mImGuiLayer->End();
 
             mWindow->OnUpdate();
         }
@@ -48,6 +49,7 @@ namespace Tungsten {
 
     void Application::PushLayer(Layer *layer) {
         mLayerStack.PushLayer(layer);
+        layer->OnAttach();
     }
 
     void Application::OnEvent(Event &e) {

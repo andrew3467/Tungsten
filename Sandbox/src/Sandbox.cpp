@@ -3,6 +3,7 @@
 //
 
 #include "Wolframite/Tungsten.h"
+#include "imgui.h"
 
 
 class ExampleLayer : public Tungsten::Layer {
@@ -88,7 +89,11 @@ public:
     }
 
     void OnImguiRender() override {
+        ImGui::Begin("Material Editor");
 
+        ImGui::Text("Test");
+
+        ImGui::End();
     }
     
 private:

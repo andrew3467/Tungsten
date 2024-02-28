@@ -9,6 +9,7 @@
 #include <memory>
 #include <Wolframite/Renderer/Shader.h>
 #include <Wolframite/Renderer/Camera.h>
+#include <Wolframite/ImGui/ImGuiLayer.h>
 
 #include "Wolframite/LayerStack.h"
 #include "Wolframite/Core/Window.h"
@@ -44,6 +45,8 @@ namespace Tungsten {
 
         std::unique_ptr<Window> mWindow;
         LayerStack mLayerStack;
+
+        ImGuiLayer* mImGuiLayer;
 
         float mLastFrameTime = 0.0f;
     };

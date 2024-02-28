@@ -27,6 +27,10 @@ include_directories(external/glad/include)
 add_subdirectory(external/glm)
 include_directories(external/glm)
 
+#Imgui
+add_subdirectory(external/imgui)
+include_directories(external/imgui)
+
 
 
 
@@ -86,6 +90,9 @@ add_library(Wolframite
         src/Wolframite/Platform/OpenGL/OpenGLRendererAPI.h
         src/Wolframite/Platform/OpenGL/OpenGLRendererAPI.cpp
         src/Wolframite/Renderer/RenderCommand.cpp
+        src/Wolframite/ImGui/ImGuiBuild.cpp
+        src/Wolframite/ImGui/ImGuiLayer.h
+        src/Wolframite/ImGui/ImGuiLayer.cpp
 )
 
 target_link_libraries(Wolframite
@@ -93,4 +100,5 @@ target_link_libraries(Wolframite
         spdlog::spdlog
         glfw
         glm
+        ImGui
 )

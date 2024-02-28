@@ -10,6 +10,9 @@ set(${CMAKE_BINARY_DIR} ../bin)
 add_subdirectory(../Wolframite Wolframite)
 include_directories(../Wolframite/src)
 
+#ImGui
+include_directories(../Wolframite/external/imgui)
+
 
 file(GLOB_RECURSE PRJ_HEADERS
         src/*.h

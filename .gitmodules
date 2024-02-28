@@ -7,3 +7,6 @@
 [submodule "Wolframite/external/glm"]
 	path = Wolframite/external/glm
 	url = https://github.com/g-truc/glm.git
+[submodule "Wolframite/external/imgui"]
+	path = Wolframite/external/imgui
+	url = https://github.com/ocornut/imgui.git
