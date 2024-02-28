@@ -14,11 +14,15 @@ namespace Tungsten {
         OpenGLVertexBuffer(float* vertices, int count);
         virtual ~OpenGLVertexBuffer() override;
 
+        virtual void SetLayout(const BufferLayout& layout) override {mLayout = layout;}
+        virtual const BufferLayout& GetLayout() const { return mLayout;}
+
         virtual void Bind() override;
         virtual void Unbind() override;
 
     private:
         uint32_t mRendererID;
+        BufferLayout mLayout;
     };
 
     class OpenGLIndexBuffer : public IndexBuffer {
@@ -29,8 +33,11 @@ namespace Tungsten {
         virtual void Bind() override;
         virtual void Unbind() override;
 
+        virtual uint32_t GetCount() override;
+
     private:
         uint32_t mRendererID;
+        uint32_t mCount;
     };
 }
 

@@ -7,11 +7,12 @@
 
 
 #include <memory>
-#include <Wolframite/Renderer/Buffer.h>
 
 #include "Wolframite/LayerStack.h"
 #include "Wolframite/Core/Window.h"
 #include "Wolframite/Events/ApplicationEvent.h"
+#include "Wolframite/Renderer/VertexArray.h"
+#include "Wolframite/Renderer/Buffer.h"
 
 namespace Tungsten {
     class Application {
@@ -42,7 +43,7 @@ namespace Tungsten {
         std::unique_ptr<Window> mWindow;
         LayerStack mLayerStack;
 
-        unsigned int mVAO, mVBO, mIBO;
+        std::shared_ptr<VertexArray> mVertexArray;
         std::shared_ptr<VertexBuffer> mVertexBuffer;
         std::shared_ptr<IndexBuffer> mIndexBuffer;
     };

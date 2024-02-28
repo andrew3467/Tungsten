@@ -35,16 +35,14 @@ namespace Tungsten {
                 2, 3, 0
         };
 
-        glGenVertexArrays(1, &mVAO);
-        glBindVertexArray(mVAO);
+        mVertexArray.reset(VertexArray::Create());
 
         mVertexBuffer.reset(VertexBuffer::Create(squareVertices, sizeof(squareVertices) / sizeof(float)));
-
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-
-        glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(sizeof(float) * 3));
+        mVertexBuffer->SetLayout({
+                                         {Tungsten::ShaderDataType::Float3, "aPosition"},
+                                         {Tungsten::ShaderDataType::Float2, "aTexCoord"},
+        });
+        mVertexArray->AddVertexBuffer(mVertexBuffer);
 
         mIndexBuffer.reset(IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
     }
@@ -56,7 +54,7 @@ namespace Tungsten {
             glClearColor(0.1, 0.1, 0.1,1);
 
             //TODO MOVE TO SANDBOX
-            glBindVertexArray(mVAO);
+            mVertexArray->Bind();
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
 

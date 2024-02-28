@@ -34,7 +34,9 @@ namespace Tungsten {
     //
     // INDEX BUFFER
     //
-    OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t *indices, int count) {
+    OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t *indices, int count)
+        : mCount(count)
+    {
         glGenBuffers(1, &mRendererID);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mRendererID);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint32_t) * count, indices, GL_STATIC_DRAW);
@@ -50,5 +52,9 @@ namespace Tungsten {
 
     void OpenGLIndexBuffer::Unbind() {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    }
+
+    uint32_t OpenGLIndexBuffer::GetCount() {
+        return mCount;
     }
 }
