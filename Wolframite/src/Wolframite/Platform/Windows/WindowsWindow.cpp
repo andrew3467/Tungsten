@@ -7,8 +7,10 @@
 #include "Wolframite/Events/ApplicationEvent.h"
 #include "Wolframite/Events/MouseEvent.h"
 #include "Wolframite/Events/KeyEvent.h"
+#include "Wolframite/Platform/OpenGL/OpenGLGraphicsContext.h"
 
 #include <GLFW/glfw3.h>
+#include <Glad/glad.h>
 
 
 namespace Tungsten {
@@ -51,9 +53,10 @@ namespace Tungsten {
 
         mWindow = glfwCreateWindow(mData.Width, mData.Height, mData.Title.c_str(), nullptr, nullptr);
 
-
         //TODO
-        //Init OpenGL context
+        //Load context depending on selected renderer API
+        mGraphicsContext = new OpenGLGraphicsContext(mWindow);
+        mGraphicsContext->Init();
 
         glfwSetWindowUserPointer(mWindow, &mData);
         SetVSync(true);
@@ -73,6 +76,10 @@ namespace Tungsten {
 
             data.Width = width;
             data.Height = height;
+
+            //TODO
+            //Move viewport resizing to RenderCommand
+            glViewport(0, 0, width, height);
 
             WindowResizeEvent event(width, height);
             data.EventCallback(event);
@@ -141,7 +148,7 @@ namespace Tungsten {
 
     void WindowsWindow::OnUpdate() {
         glfwPollEvents();
-        //Swap Buffers
+        mGraphicsContext->SwapBuffers();
     }
 
     void WindowsWindow::Shutdown() {

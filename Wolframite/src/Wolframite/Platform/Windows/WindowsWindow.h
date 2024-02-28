@@ -10,6 +10,7 @@
 
 
 #include <GLFW/glfw3.h>
+#include <Wolframite/Renderer/GraphicsContext.h>
 
 
 namespace Tungsten {
@@ -37,6 +38,7 @@ namespace Tungsten {
 
     private:
         GLFWwindow* mWindow;
+        GraphicsContext* mGraphicsContext;
 
         struct WindowData {
             uint32_t Width, Height;

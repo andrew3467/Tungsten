@@ -8,7 +8,7 @@
 class ExampleLayer : public Tungsten::Layer {
 public:
     ExampleLayer() {
-        OnStart();
+
     }
 
     ~ExampleLayer() {

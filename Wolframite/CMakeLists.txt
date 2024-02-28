@@ -18,6 +18,11 @@ include_directories(external/glfw/include)
 add_compile_definitions(GLFW_INCLUDE_NONE)
 
 
+#GLAD
+file(GLOB_RECURSE GLAD_SRC external/glad/*)
+include_directories(external/glad/include)
+
+
 
 
 include_directories(src)
@@ -34,6 +39,7 @@ file(GLOB_RECURSE PRJ_SRC
 
 
 add_library(Wolframite
+        ${GLAD_SRC}
         src/Wolframite/Core/Log.cpp
         src/Wolframite/Core/Log.h
         src/Wolframite/Core/Window.h
@@ -50,6 +56,11 @@ add_library(Wolframite
         src/Wolframite/Events/Event.h
         src/Wolframite/Events/KeyEvent.h
         src/Wolframite/Events/ApplicationEvent.h
+        src/Wolframite/Renderer/GraphicsContext.h
+        src/Wolframite/Platform/OpenGL/OpenGLGraphicsContext.h
+        src/Wolframite/Platform/OpenGL/OpenGLGraphicsContext.cpp
+        src/Wolframite/Renderer/Buffer.cpp
+        src/Wolframite/Platform/OpenGL/OpenGLBuffer.cpp
 )
 
 target_link_libraries(Wolframite
