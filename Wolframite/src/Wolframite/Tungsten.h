@@ -7,9 +7,15 @@
 
 
 #include "Application.h"
-#include "Layer.h"
+#include "Wolframite/Layer.h"
+#include "Wolframite/Renderer/Camera.h"
+#include "Wolframite/Renderer/Renderer.h"
+#include "Wolframite/Renderer/RenderCommand.h"
 
 #include "Wolframite/Core/Log.h"
+#include "Wolframite/Core/Input.h"
+#include "Wolframite/Core/KeyCodes.h"
+#include "Wolframite/Core/MouseButtonCodes.h"
 
 //
 //  Entry Point

@@ -46,20 +46,6 @@ namespace Tungsten {
         LayerStack mLayerStack;
 
         float mLastFrameTime = 0.0f;
-
-
-        Camera mCamera;
-        glm::vec3 mCameraPosition = {0.0f, 0.0f, 0.0f};
-        float mCameraMoveSpeed = 2.5f;
-
-        float mCameraRotation = 0.0f;
-        float mCameraRotationSpeed = 180.0f;
-
-        std::shared_ptr<Shader> mShader;
-
-        std::shared_ptr<VertexArray> mVertexArray;
-        std::shared_ptr<VertexBuffer> mVertexBuffer;
-        std::shared_ptr<IndexBuffer> mIndexBuffer;
     };
 }
 

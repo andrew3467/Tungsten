@@ -79,6 +79,13 @@ add_library(Wolframite
         src/Wolframite/Platform/Windows/WindowsInput.cpp
         src/Wolframite/Core/KeyCodes.h
         src/Wolframite/Core/MouseButtonCodes.h
+        src/Wolframite/Renderer/Renderer.h
+        src/Wolframite/Renderer/Renderer.cpp
+        src/Wolframite/Renderer/RendererAPI.cpp
+        src/Wolframite/Renderer/RenderCommand.h
+        src/Wolframite/Platform/OpenGL/OpenGLRendererAPI.h
+        src/Wolframite/Platform/OpenGL/OpenGLRendererAPI.cpp
+        src/Wolframite/Renderer/RenderCommand.cpp
 )
 
 target_link_libraries(Wolframite
