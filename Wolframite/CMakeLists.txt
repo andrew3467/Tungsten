@@ -64,6 +64,10 @@ add_library(Wolframite
         src/Wolframite/Renderer/VertexArray.h
         src/Wolframite/Renderer/VertexArray.cpp
         src/Wolframite/Platform/OpenGL/OpenGLVertexArray.cpp
+        src/Wolframite/Renderer/Shader.h
+        src/Wolframite/Platform/OpenGL/OpenGLShader.h
+        src/Wolframite/Platform/OpenGL/OpenGLShader.cpp
+        src/Wolframite/Renderer/Shader.cpp
 )
 
 target_link_libraries(Wolframite
