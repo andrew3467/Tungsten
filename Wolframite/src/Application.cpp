@@ -15,7 +15,9 @@
 namespace Tungsten {
     Application* Application::mInstance = nullptr;
 
-    Application::Application() {
+    Application::Application() 
+        : mCamera(-1.6f, 1.6f, -0.9f, 0.9f)
+    {
         Log::Init();
 
         TUNGSTEN_CORE_ASSERT(!mInstance, "Only one instance of Application may exist")
@@ -55,6 +57,33 @@ namespace Tungsten {
 
     void Application::Run() {
         while (mRunning){
+            //Input Polling
+            /*
+            if(Tungsten::Input::IsKeyPressed(TUNGSTEN_KEY_A)){
+                mCameraPosition.x -= mCameraMoveSpeed * ts;
+            }
+
+            if(Tungsten::Input::IsKeyPressed(TUNGSTEN_KEY_D)){
+                mCameraPosition.x += mCameraMoveSpeed * ts;
+            }
+
+            if(Tungsten::Input::IsKeyPressed(TUNGSTEN_KEY_S)){
+                mCameraPosition.y -= mCameraMoveSpeed * ts;
+            }
+
+            if(Tungsten::Input::IsKeyPressed(TUNGSTEN_KEY_W)){
+                mCameraPosition.y += mCameraMoveSpeed * ts;
+            }
+
+            if(Tungsten::Input::IsKeyPressed(TUNGSTEN_KEY_LEFT)){
+                mCameraRotation += mCameraRotationSpeed * ts;
+            }
+
+            if(Tungsten::Input::IsKeyPressed(TUNGSTEN_KEY_RIGHT)){
+                mCameraRotation -= mCameraRotationSpeed * ts;
+            }
+            */
+
             //TODO Move to rendererAPI
             glClear(GL_COLOR_BUFFER_BIT);
             glClearColor(0.1, 0.1, 0.1,1);

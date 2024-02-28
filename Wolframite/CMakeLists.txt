@@ -73,6 +73,9 @@ add_library(Wolframite
         src/Wolframite/Platform/OpenGL/OpenGLShader.h
         src/Wolframite/Platform/OpenGL/OpenGLShader.cpp
         src/Wolframite/Renderer/Shader.cpp
+        src/Wolframite/Renderer/Camera.h
+        src/Wolframite/Renderer/Camera.cpp
+        src/Wolframite/Core/Input.h
 )
 
 target_link_libraries(Wolframite
