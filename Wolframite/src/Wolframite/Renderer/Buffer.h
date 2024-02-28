@@ -11,7 +11,7 @@
 namespace Tungsten {
     class VertexBuffer {
     public:
-        virtual ~VertexBuffer() = 0;
+        virtual ~VertexBuffer() = default;
 
         virtual void Bind() = 0;
         virtual void Unbind() = 0;
@@ -21,7 +21,7 @@ namespace Tungsten {
 
     class IndexBuffer {
     public:
-        virtual ~IndexBuffer() = 0;
+        virtual ~IndexBuffer() = default;
 
         virtual void Bind() = 0;
         virtual void Unbind() = 0;
