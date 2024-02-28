@@ -9,6 +9,7 @@
 
 #include <GLFW/glfw3.h>
 #include <Glad/glad.h>
+#include <Wolframite/Renderer/Shader.h>
 
 
 namespace Tungsten {
@@ -45,6 +46,8 @@ namespace Tungsten {
         mVertexArray->AddVertexBuffer(mVertexBuffer);
 
         mIndexBuffer.reset(IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+
+        mShader.reset(Shader::Create("../../Wolframite/src/Shaders/Basic_Unlit.glsl"));
     }
 
     void Application::Run() {
@@ -55,6 +58,7 @@ namespace Tungsten {
 
             //TODO MOVE TO SANDBOX
             mVertexArray->Bind();
+            mShader->Bind();
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
 

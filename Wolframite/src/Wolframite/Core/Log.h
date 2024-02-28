@@ -30,12 +30,14 @@ namespace Tungsten {
 #define TUNGSTEN_CORE_WARN(...) ::Tungsten::Log::GetCoreLogger()->warn(__VA_ARGS__)
 #define TUNGSTEN_CORE_ERROR(...) ::Tungsten::Log::GetCoreLogger()->error(__VA_ARGS__)
 #define TUNGSTEN_CORE_FATAL(...) ::Tungsten::Log::GetCoreLogger()->critical(__VA_ARGS__)
+#define TUNGSTEN_CORE_ASSERT(x, ...) {if(!(x)) {TUNGSTEN_CORE_ERROR("Assertion failed: {0}", __VA_ARGS__);}}
 
 #define TUNGSTEN_TRACE(...) ::Tungsten::Log::GetClientLogger()->trace(__VA_ARGS__)
 #define TUNGSTEN_INFO(...) ::Tungsten::Log::GetClientLogger()->info(__VA_ARGS__)
 #define TUNGSTEN_WARN(...) ::Tungsten::Log::GetClientLogger()->warn(__VA_ARGS__)
 #define TUNGSTEN_ERROR(...) ::Tungsten::Log::GetClientLogger()->error(__VA_ARGS__)
 #define TUNGSTEN_FATAL(...) ::Tungsten::Log::GetClientLogger()->critical(__VA_ARGS__)
+#define TUNGSTEN_ASSERT(x, ...) {if(!(x)) {TUNGSTEN_ERROR("Assertion failed: {0}", __VA_ARGS__);}}
 
 
 #endif //WOLFRAMITE_LOG_H

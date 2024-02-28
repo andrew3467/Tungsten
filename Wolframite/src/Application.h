@@ -7,6 +7,7 @@
 
 
 #include <memory>
+#include <Wolframite/Renderer/Shader.h>
 
 #include "Wolframite/LayerStack.h"
 #include "Wolframite/Core/Window.h"
@@ -42,6 +43,9 @@ namespace Tungsten {
 
         std::unique_ptr<Window> mWindow;
         LayerStack mLayerStack;
+
+
+        std::shared_ptr<Shader> mShader;
 
         std::shared_ptr<VertexArray> mVertexArray;
         std::shared_ptr<VertexBuffer> mVertexBuffer;
