@@ -74,5 +74,6 @@ namespace Tungsten {
         buffer->Bind();
 
         mIndexBuffer = buffer;
+        mHasIndexBuffer = true;
     }
 }

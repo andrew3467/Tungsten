@@ -126,6 +126,8 @@ namespace Tungsten {
         virtual void Bind() = 0;
         virtual void Unbind() = 0;
 
+        virtual uint32_t GetCount() = 0;
+
         static VertexBuffer *Create(float *vertices, int count);
     };
 

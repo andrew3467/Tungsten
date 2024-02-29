@@ -12,15 +12,14 @@
 #include "Wolframite/Renderer/Renderer.h"
 #include "Wolframite/Renderer/RenderCommand.h"
 #include "Wolframite/Renderer/Texture.h"
+#include "Wolframite/Renderer/CameraController.h"
 
 #include "Wolframite/Core/Log.h"
 #include "Wolframite/Input/Input.h"
 #include "Wolframite/Input/KeyCodes.h"
 #include "Wolframite/Input/MouseButtonCodes.h"
 
-//
-//  Entry Point
-//
-#include "../EntryPoint.h"
+
+
 
 #endif //SANDBOX_TUNGSTEN_H

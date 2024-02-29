@@ -2,6 +2,7 @@
 // Created by Andrew Graser on 2/28/2024.
 //
 
+
 #ifndef SANDBOX_CAMERA_H
 #define SANDBOX_CAMERA_H
 
@@ -10,32 +11,42 @@
 namespace Tungsten {
     class Camera {
     public:
-        Camera(float left, float right, float bottom, float top);
+        Camera(float aspect, const glm::vec3& position);
+        Camera();
         ~Camera();
 
+        void SetPosition(const glm::vec3& position) {mPosition = position; CalculateMatrices();}
+        void SetRotation(const glm::vec3& rotation);
+
+        const glm::vec3& GetFront() const {return mFront;}
+        const glm::vec3& GetUp() const {return mUp;}
+        const glm::vec3& GetRight() const {return mRight;}
 
         const glm::vec3& GetPosition() const {return mPosition;}
-        float GetRotation() const {return mRotation;}
+        const glm::vec3& GetRotation() const {return mFront;}
 
-        void SetPosition(const glm::vec3& position){mPosition = position; RecalculateViewMatrix();}
-        void SetRotation(const float rotation){mRotation = rotation; RecalculateViewMatrix();}
+        const glm::mat4& GetProjection() {return mProjection;}
+        const glm::mat4& GetView() {return mView;}
+        const glm::mat4& GetViewProjection() {return mViewProjection;}
 
-        const glm::mat4& GetProjectionMatrix() const {return mProjectionMatrix;}
-        const glm::mat4& GetViewMatrix() const {return mViewMatrix;}
-        const glm::mat4& GetViewProjectionMatrix() const {return mViewProjectionMatrix;}
-
+    private:
+        void CalculateMatrices();
 
 
     private:
-        void RecalculateViewMatrix();
+        glm::mat4 mProjection;
+        glm::mat4 mView;
+        glm::mat4 mViewProjection;
 
-    private:
-        glm::mat4 mProjectionMatrix;
-        glm::mat4 mViewMatrix;
-        glm::mat4 mViewProjectionMatrix;
+        glm::vec3 mPosition = {0.0f, 0.0f, 0.0f};
+        glm::vec3 mFront = {0.0f, 0.0f, -1.0f};
+        glm::vec3 mUp = {0.0f, 1.0f, 0.0f};
+        glm::vec3 mRight = {1.0f, 0.0f,0.0f};
+        glm::vec3 mWorldUp = {0.0f, 1.0f, 0.0f};
 
-        glm::vec3 mPosition;
-        float mRotation;
+        float mFOV = 60.0f;
+        float mAspectRatio;
+        float mNear = 0.1f, mFar = 100.0f;
     };
 }
 

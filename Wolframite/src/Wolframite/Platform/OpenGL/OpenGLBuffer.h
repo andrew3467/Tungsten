@@ -17,12 +17,15 @@ namespace Tungsten {
         virtual void SetLayout(const BufferLayout& layout) override {mLayout = layout;}
         virtual const BufferLayout& GetLayout() const { return mLayout;}
 
+        virtual uint32_t GetCount() override {return mCount;}
+
         virtual void Bind() override;
         virtual void Unbind() override;
 
     private:
         uint32_t mRendererID;
         BufferLayout mLayout;
+        uint32_t mCount;
     };
 
     class OpenGLIndexBuffer : public IndexBuffer {

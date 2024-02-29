@@ -10,7 +10,7 @@ namespace Tungsten {
     Renderer::SceneData* Renderer::mSceneData = new Renderer::SceneData();
 
     void Renderer::StartScene(Camera &camera) {
-        mSceneData->ViewProjection = camera.GetViewProjectionMatrix();
+        mSceneData->ViewProjection = camera.GetViewProjection();
     }
 
     void Renderer::EndScene() {
@@ -23,6 +23,10 @@ namespace Tungsten {
         shader->SetUniformMat4("uTransform", glm::mat4(1.0f));
 
         vertexArray->Bind();
-        RenderCommand::DrawIndexed(vertexArray);
+        if(vertexArray->HasIndexBuffer()){
+            RenderCommand::DrawIndexed(vertexArray);
+        } else {
+            RenderCommand::DrawArrays(vertexArray);
+        }
     }
 }

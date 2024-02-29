@@ -22,6 +22,10 @@ namespace Tungsten {
             mRendererAPI->DrawIndexed(vertexArray);
         }
 
+        static void DrawArrays(const std::shared_ptr<VertexArray>& vertexArray){
+            mRendererAPI->DrawArrays(vertexArray);
+        }
+
     private:
         static RendererAPI* mRendererAPI;
     };

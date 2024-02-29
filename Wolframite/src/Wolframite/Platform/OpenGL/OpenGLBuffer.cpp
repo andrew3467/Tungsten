@@ -13,7 +13,9 @@ namespace Tungsten {
     //
     // VERTEX BUFFER
     //
-    OpenGLVertexBuffer::OpenGLVertexBuffer(float *vertices, int count) {
+    OpenGLVertexBuffer::OpenGLVertexBuffer(float *vertices, int count)
+        : mCount(count)
+    {
         glGenBuffers(1, &mRendererID);
         glBindBuffer(GL_ARRAY_BUFFER, mRendererID);
         glBufferData(GL_ARRAY_BUFFER, sizeof(float) * count, vertices, GL_STATIC_DRAW);

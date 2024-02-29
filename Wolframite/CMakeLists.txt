@@ -83,7 +83,6 @@ add_library(Wolframite
         src/Wolframite/Platform/OpenGL/OpenGLShader.cpp
         src/Wolframite/Renderer/Shader.cpp
         src/Wolframite/Renderer/Camera.h
-        src/Wolframite/Renderer/Camera.cpp
         src/Wolframite/Input/Input.h
         src/Wolframite/Platform/Windows/WindowsInput.cpp
         src/Wolframite/Input/KeyCodes.h
@@ -103,6 +102,9 @@ add_library(Wolframite
         src/Wolframite/Platform/OpenGL/OpenGLTexture.h
         src/Wolframite/Platform/OpenGL/OpenGLTexture.cpp
         src/Wolframite/Renderer/Texture.cpp
+        src/Wolframite/Renderer/Camera.cpp
+        src/Wolframite/Renderer/CameraController.h
+        src/Wolframite/Renderer/CameraController.cpp
 )
 
 target_link_libraries(Wolframite

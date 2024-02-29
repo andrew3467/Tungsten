@@ -28,7 +28,10 @@ namespace Tungsten {
         void AddVertexBuffer(std::shared_ptr<VertexBuffer>& buffer) override;
         void SetIndexBuffer(std::shared_ptr<IndexBuffer>& buffer) override;
 
+        virtual bool HasIndexBuffer() const override {return mHasIndexBuffer;}
+
         inline std::shared_ptr<IndexBuffer>& GetIndexBuffer() {return mIndexBuffer;}
+        virtual std::vector<std::shared_ptr<VertexBuffer>>& GetVertexBuffers() override {return mVertexBuffers;}
 
     private:
         uint32_t mRendererID;
@@ -37,6 +40,8 @@ namespace Tungsten {
 
         std::vector<std::shared_ptr<VertexBuffer>> mVertexBuffers;
         std::shared_ptr<IndexBuffer> mIndexBuffer;
+
+        bool mHasIndexBuffer = false;
     };
 }
 
