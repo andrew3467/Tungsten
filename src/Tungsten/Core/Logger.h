@@ -6,12 +6,12 @@
 #pragma once
 #include <iostream>
 
-void print() {
-    std::cout << "Hello World!\n";
-}
 
 namespace Tungsten {
     class Logger {
+    public:
+        void Init();
+
 
     };
 }

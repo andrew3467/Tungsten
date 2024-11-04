@@ -3,6 +3,8 @@ project(src/Tungsten)
 
 set(CMAKE_CXX_STANDARD 23)
 
+
+
 file(GLOB_RECURSE SRC src/*.cpp)
 file(GLOB_RECURSE HEADERS src/*.h)
 
@@ -16,4 +18,10 @@ target_include_directories(
         Tungsten
         PRIVATE
         src/Tungsten
+)
+
+target_link_libraries(
+        Tungsten
+        PRIVATE
+        spdlog::spdlog
 )
