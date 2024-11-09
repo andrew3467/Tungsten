@@ -3,6 +3,9 @@ project(src/Tungsten)
 
 set(CMAKE_CXX_STANDARD 23)
 
+find_package(glad CONFIG REQUIRED)
+find_package(glfw3 CONFIG REQUIRED)
+
 
 file(GLOB_RECURSE SRC src/*.cpp)
 file(GLOB_RECURSE HEADERS src/*.h)
@@ -23,4 +26,12 @@ target_link_libraries(
         Tungsten
         PRIVATE
         spdlog::spdlog
+        glad::glad
+        glfw
+)
+
+target_precompile_headers(
+        Tungsten
+        PRIVATE
+        src/Tungsten/tungstenpch.h
 )
