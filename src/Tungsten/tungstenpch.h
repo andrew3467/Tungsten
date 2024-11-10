@@ -17,12 +17,13 @@
 #include <future>
 #include <ostream>
 #include <fstream>
+#include <set>
+#include <utility>
 
 #include <cstdio>
 
 #include "Core/Logger.h"
-#include <set>
-#include <utility>
+
 
 //Engine Types
 #define TUNGSTEN_BIND_EVENT_FUNC(x) std::bind(&x, this, std::placeholders::_1)

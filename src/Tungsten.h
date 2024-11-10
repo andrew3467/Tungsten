@@ -6,4 +6,7 @@
 #pragma once
 
 #include "Tungsten/Core/Logger.h"
+#include "Tungsten/Core/Window.h"
+
+#include "Tungsten/Renderer/Renderer.h"
 
