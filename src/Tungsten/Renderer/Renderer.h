@@ -4,6 +4,7 @@
 
 
 #pragma once
+#include <glm/glm.hpp>
 
 namespace Tungsten
 {
@@ -12,5 +13,7 @@ namespace Tungsten
         void Init();
         void SetClearColor(float r, float g, float b);
         void Clear();
+
+        void DrawQuad(const glm::vec3& position);
     }
 }

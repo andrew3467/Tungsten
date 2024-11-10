@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 23)
 find_package(spdlog CONFIG REQUIRED)
 find_package(glad CONFIG REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
+find_package(glm CONFIG REQUIRED)
 
 
 file(GLOB_RECURSE SRC src/*.cpp)
@@ -29,6 +30,7 @@ target_link_libraries(
         spdlog::spdlog
         glad::glad
         glfw
+        glm::glm
 )
 
 target_precompile_headers(
