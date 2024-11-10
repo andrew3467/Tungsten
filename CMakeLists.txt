@@ -3,6 +3,7 @@ project(src/Tungsten)
 
 set(CMAKE_CXX_STANDARD 23)
 
+find_package(spdlog CONFIG REQUIRED)
 find_package(glad CONFIG REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
 
