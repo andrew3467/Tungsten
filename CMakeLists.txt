@@ -35,3 +35,10 @@ target_precompile_headers(
         PRIVATE
         src/Tungsten/tungstenpch.h
 )
+
+target_compile_definitions(
+        Tungsten
+        PRIVATE
+
+        GLFW_INCLUDE_NONE
+)

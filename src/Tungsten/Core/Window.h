@@ -4,9 +4,35 @@
 
 
 #pragma once
+#include <GLFW/glfw3.h>
 
 namespace Tungsten {
-    class Window {
+    struct WindowProps {
+        uint32_t Width = 1280, Height = 720;
+        std::string Title = "Tungsten Engine";
+    };
 
+    class Window {
+    public:
+        Window() = delete;
+        Window(const WindowProps& props);
+        ~Window();
+
+        bool ShouldClose();
+
+        void Update();
+
+    private:
+        struct WindowData {
+            uint32_t Width;
+            uint32_t Height;
+            std::string Title;
+
+            bool VSync;
+        };
+        WindowData mData;
+
+
+        GLFWwindow *mWindow;
     };
 }
