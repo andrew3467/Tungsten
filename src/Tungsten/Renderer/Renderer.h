@@ -14,6 +14,6 @@ namespace Tungsten
         void SetClearColor(float r, float g, float b);
         void Clear();
 
-        void DrawQuad(const glm::vec3& position);
+        void DrawQuad(const glm::vec3& position, const glm::vec3& scale);
     }
 }
