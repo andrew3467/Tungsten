@@ -6,6 +6,7 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/ext/matrix_clip_space.hpp>
 #include <glm/ext/matrix_transform.hpp>
 
 #include "Shader.h"
@@ -90,9 +91,14 @@ namespace Tungsten::Renderer
         auto& shader = sData.UnlitShader;
         shader->Bind();
 
+
+        const glm::mat4 view = glm::lookAt(glm::vec3(0,0,-4), glm::vec3(0,0,-4), glm::vec3(0,1,0));
+        const glm::mat4 proj = glm::perspective(60.f, 1280.f/720.f, 0.0f, 100.0f);
+
+
         shader->SetFloat3("uColor",{1.0, 1.0, 0.0f});
         shader->SetFloat4x4("uModel", glm::translate(glm::mat4(1.0f), position));
-        shader->SetFloat4x4("uViewProj", glm::mat4(1.0f));
+        shader->SetFloat4x4("uViewProj", proj * view);
 
 
         sData.QuadVA->Bind();
