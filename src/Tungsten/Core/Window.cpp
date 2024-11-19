@@ -4,6 +4,8 @@
 
 #include "Window.h"
 
+#include "Renderer/Renderer.h"
+
 
 namespace Tungsten {
     bool sGLFWInitialized = false;
@@ -35,6 +37,15 @@ namespace Tungsten {
 
         glfwMakeContextCurrent(mWindow);
         glfwSetWindowUserPointer(mWindow, &mData);
+
+        glfwSetWindowSizeCallback(mWindow, [](GLFWwindow *window, int width, int height)
+        {
+            auto data = (WindowData*)glfwGetWindowUserPointer(window);
+            data->Width = width;
+            data->Height = height;
+
+            Renderer::SetViewport(0, 0, width, height);
+        });
     }
 
     Window::~Window() {

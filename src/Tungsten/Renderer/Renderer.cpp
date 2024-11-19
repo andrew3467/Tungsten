@@ -81,6 +81,11 @@ namespace Tungsten::Renderer
         glClearColor(r, g, b, 1.0f);
     }
 
+    void SetViewport(float x, float y, float width, float height)
+    {
+        glViewport(x, y, width, height);
+    }
+
     void Clear()
     {
         glClear(GL_COLOR_BUFFER_BIT);
