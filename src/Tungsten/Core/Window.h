@@ -18,6 +18,8 @@ namespace Tungsten {
         Window(const WindowProps& props);
         ~Window();
 
+        GLFWwindow* GetNativeWindow() const {return mWindow;}
+
         bool ShouldClose();
 
         void Update();
