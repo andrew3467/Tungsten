@@ -27,6 +27,8 @@ namespace Tungsten::Renderer
         std::shared_ptr<VertexArray> QuadVA;
 
         std::shared_ptr<Shader> UnlitShader;
+
+        glm::mat4 ViewProj;
     } sData;
 
     void InitData()
@@ -91,20 +93,20 @@ namespace Tungsten::Renderer
         glClear(GL_COLOR_BUFFER_BIT);
     }
 
+    void StartScene(const glm::mat4 &viewProj)
+    {
+        sData.ViewProj = viewProj;
+    }
+
     void DrawQuad(const glm::vec3& position, const glm::vec3& scale)
     {
         const auto& shader = sData.UnlitShader;
         shader->Bind();
 
-
-        const glm::mat4 view = glm::lookAt(glm::vec3(0,0,3), glm::vec3(0,0,0), glm::vec3(0,1,0));
-        const glm::mat4 proj = glm::perspective(glm::radians(60.f), 1280.f/720.f, 0.0f, 100.0f);
-
-
         shader->SetFloat3("uColor",{1.0, 1.0, 0.0f});
         shader->SetFloat4x4("uModel",
             glm::scale(glm::translate(glm::mat4(1.0f), position), scale));
-        shader->SetFloat4x4("uViewProj", proj * view);
+        shader->SetFloat4x4("uViewProj", sData.ViewProj);
 
 
         sData.QuadVA->Bind();

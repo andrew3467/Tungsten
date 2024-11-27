@@ -28,10 +28,6 @@ namespace Tungsten {
 
         mData.VSync = true;
 
-        if(!sGLFWInitialized)
-            InitGLFW();
-
-
         mWindow = glfwCreateWindow(mData.Width, mData.Height, mData.Title.c_str(), nullptr, nullptr);
         TUNGSTEN_ASSERT(mWindow, "Failed to create GLFW window");
 

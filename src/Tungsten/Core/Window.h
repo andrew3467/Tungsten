@@ -12,6 +12,8 @@ namespace Tungsten {
         std::string Title = "Tungsten Engine";
     };
 
+    void InitGLFW();
+
     class Window {
     public:
         Window() = delete;
@@ -19,6 +21,7 @@ namespace Tungsten {
         ~Window();
 
         GLFWwindow* GetNativeWindow() const {return mWindow;}
+        float GetAspect() const {return (float)mData.Width / (float)mData.Height;}
 
         bool ShouldClose();
 

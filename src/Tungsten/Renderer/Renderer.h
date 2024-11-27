@@ -17,6 +17,7 @@ namespace Tungsten
 
         void Clear();
 
+        void StartScene(const glm::mat4& viewProj);
         void DrawQuad(const glm::vec3& position, const glm::vec3& scale);
     }
 }
