@@ -12,13 +12,12 @@ namespace Tungsten {
         std::string Title = "Tungsten Engine";
     };
 
-    void InitGLFW();
-
     class Window {
     public:
         Window() = delete;
         Window(const WindowProps& props);
         ~Window();
+
 
         GLFWwindow* GetNativeWindow() const {return mWindow;}
         float GetAspect() const {return (float)mData.Width / (float)mData.Height;}

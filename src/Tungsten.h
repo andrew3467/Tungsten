@@ -7,25 +7,11 @@
 
 
 
+#include "Tungsten/Core/Engine.h"
+
 #include "Tungsten/Core/Logger.h"
 #include "Tungsten/Core/Window.h"
 
+#include "Tungsten/Core/Physics/2D/BoxCollider2D.h"
+
 #include "Tungsten/Renderer/Renderer.h"
-
-
-
-namespace Tungsten
-{
-    Window Init(const std::string& title)
-    {
-        Logger::Init();
-        Tungsten::InitGLFW();
-
-        Window defaultWindow({1280, 720, title});
-
-        Renderer::Init();
-
-
-        return defaultWindow;
-    }
-}

@@ -4,17 +4,27 @@
 
 #include "Window.h"
 
+#include "Engine.h"
 #include "Renderer/Renderer.h"
 
 
 namespace Tungsten {
+    //GLFW Error callback
+    void GLFWErrorCallback(int code, const char* description)
+    {
+        TUNGSTEN_ERROR("GLFW Error {0}: {1}", code, description);
+    }
+
     bool sGLFWInitialized = false;
     void InitGLFW() {
+        glfwSetErrorCallback(GLFWErrorCallback);
+
         int success = glfwInit();
         TUNGSTEN_ASSERT(success, "Failed to initialize GLFW3");
 
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+        
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
         sGLFWInitialized = true;
@@ -28,11 +38,22 @@ namespace Tungsten {
 
         mData.VSync = true;
 
+
+        if(!sGLFWInitialized)
+        {
+            InitGLFW();
+        }
+
         mWindow = glfwCreateWindow(mData.Width, mData.Height, mData.Title.c_str(), nullptr, nullptr);
         TUNGSTEN_ASSERT(mWindow, "Failed to create GLFW window");
 
         glfwMakeContextCurrent(mWindow);
         glfwSetWindowUserPointer(mWindow, &mData);
+
+        glfwSetWindowCloseCallback(mWindow, [](GLFWwindow* window)
+        {
+            Engine::Get().Close();
+        });
 
         glfwSetWindowSizeCallback(mWindow, [](GLFWwindow *window, int width, int height)
         {

@@ -20,7 +20,8 @@
 #include <set>
 #include <utility>
 
-#include <cstdio>
+//C libs
+#include <cstdio> //for uint32_t etc
 
 #include "Core/Logger.h"
 

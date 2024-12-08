@@ -12,6 +12,7 @@
 #include "Shader.h"
 #include "VertexArray.h"
 #include "Buffer.h"
+#include "Texture.h"
 
 
 namespace Tungsten::Renderer
@@ -88,6 +89,12 @@ namespace Tungsten::Renderer
         glViewport(x, y, width, height);
     }
 
+    void ToggleWireframe()
+    {
+        static bool toggle = false;
+        glPolygonMode(GL_FRONT_AND_BACK, toggle ? GL_LINE : GL_FILL);
+    }
+
     void Clear()
     {
         glClear(GL_COLOR_BUFFER_BIT);
@@ -98,12 +105,36 @@ namespace Tungsten::Renderer
         sData.ViewProj = viewProj;
     }
 
-    void DrawQuad(const glm::vec3& position, const glm::vec3& scale)
+    void DrawQuad(const glm::vec2 &position, const glm::vec2 &scale, const glm::vec3 &color)
+    {
+        DrawQuad(glm::vec3(position, 0.0f), glm::vec3(scale, 1.0f), color);
+    }
+
+    void DrawQuad(const glm::vec2 &position, const glm::vec2 &scale, const std::shared_ptr<Texture2D> &texture)
+    {
+        DrawQuad(glm::vec3(position, 0.0f), glm::vec3(scale, 1.0f), texture);
+    }
+
+    void DrawQuad(const glm::vec3 &position, const glm::vec3 &scale, const glm::vec3 &color)
+    {
+        DrawQuad(position, scale, Texture2D::Get("Default"), color);
+    }
+
+    void DrawQuad(const glm::vec3 &position, const glm::vec3 &scale, const std::shared_ptr<Texture2D> &texture)
+    {
+        DrawQuad(position, scale, texture, glm::vec3(1));
+    }
+
+    void DrawQuad(const glm::vec3 &position, const glm::vec3 &scale, const std::shared_ptr<Texture2D> &texture,
+        const glm::vec3 &color)
     {
         const auto& shader = sData.UnlitShader;
         shader->Bind();
 
-        shader->SetFloat3("uColor",{1.0, 1.0, 0.0f});
+        shader->SetFloat3("uColor", color);
+
+        texture->Bind(0);
+
         shader->SetFloat4x4("uModel",
             glm::scale(glm::translate(glm::mat4(1.0f), position), scale));
         shader->SetFloat4x4("uViewProj", sData.ViewProj);

@@ -9,6 +9,9 @@ find_package(glfw3 CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
 
 
+add_subdirectory(External)
+
+
 file(GLOB_RECURSE SRC src/*.cpp)
 file(GLOB_RECURSE HEADERS src/*.h)
 
@@ -22,6 +25,8 @@ target_include_directories(
         Tungsten
         PRIVATE
         src/Tungsten
+        External/stb
+        External/imgui
 )
 
 target_link_libraries(
@@ -31,6 +36,8 @@ target_link_libraries(
         glad::glad
         glfw
         glm::glm
+        stb
+        ImGui
 )
 
 target_precompile_headers(
