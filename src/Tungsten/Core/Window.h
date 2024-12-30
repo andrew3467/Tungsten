@@ -5,6 +5,7 @@
 
 #pragma once
 #include <GLFW/glfw3.h>
+#include <glm/vec2.hpp>
 
 namespace Tungsten {
     struct WindowProps {
@@ -12,7 +13,8 @@ namespace Tungsten {
         std::string Title = "Tungsten Engine";
     };
 
-    class Window {
+    class Window
+    {
     public:
         Window() = delete;
         Window(const WindowProps& props);
@@ -25,6 +27,8 @@ namespace Tungsten {
         bool ShouldClose();
 
         void Update();
+
+        glm::vec2 GetSize() { return {mData.Width, mData.Height}; }
 
     private:
         struct WindowData {
