@@ -172,6 +172,10 @@ namespace Tungsten::Renderer
         sData.ViewProj = viewProj;
     }
 
+
+
+#pragma region 3D
+
     void DrawCube(const glm::vec3 &position, const glm::vec3 &scale, const glm::vec3 &color)
     {
         DrawCube(position, scale, Texture2D::Get("Default"), color);
@@ -194,7 +198,7 @@ namespace Tungsten::Renderer
 
         shader->SetFloat4x4("uModel",
             glm::scale(glm::translate(glm::mat4(1.0f), position), scale));
-        shader->SetFloat4x4("uViewProj", glm::mat4(1));
+        shader->SetFloat4x4("uViewProj", sData.ViewProj);
 
 
         sData.CubeVA->Bind();
@@ -202,9 +206,6 @@ namespace Tungsten::Renderer
         //Draw Vertices
         glDrawElements(GL_TRIANGLES, sData.QuadVA->GetIndexBuffer().GetCount(), GL_UNSIGNED_INT, nullptr);
     }
-
-#pragma region 3D
-
 
 #pragma endregion
 
@@ -238,7 +239,7 @@ namespace Tungsten::Renderer
 
         shader->SetFloat4x4("uModel",
             glm::scale(glm::translate(glm::mat4(1.0f), position), scale));
-        shader->SetFloat4x4("uViewProj", glm::mat4(1));
+        shader->SetFloat4x4("uViewProj", sData.ViewProj);
 
 
         sData.QuadVA->Bind();
