@@ -10,11 +10,11 @@
 
 namespace Tungsten
 {
-    class OrthographicCamera {
+    class Camera {
     public:
-        OrthographicCamera() : OrthographicCamera({0,0,0}) {}
-        OrthographicCamera(const glm::vec3& pos);
-        ~OrthographicCamera() = default;
+        Camera() : Camera({0, 0, 0}) {}
+        Camera(const glm::vec3& pos);
+        ~Camera() = default;
 
         glm::mat4 GetProjection() const;
 
