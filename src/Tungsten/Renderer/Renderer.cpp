@@ -204,7 +204,7 @@ namespace Tungsten::Renderer
         sData.CubeVA->Bind();
 
         //Draw Vertices
-        glDrawElements(GL_TRIANGLES, sData.QuadVA->GetIndexBuffer().GetCount(), GL_UNSIGNED_INT, nullptr);
+        glDrawElements(GL_TRIANGLES, sData.CubeVA->GetIndexBuffer().GetCount(), GL_UNSIGNED_INT, nullptr);
     }
 
 #pragma endregion

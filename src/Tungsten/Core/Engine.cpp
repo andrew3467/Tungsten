@@ -20,7 +20,6 @@ namespace Tungsten
         sInstance = this;
 
         Logger::Init();
-
         Time::Init();
 
 
@@ -30,7 +29,7 @@ namespace Tungsten
         Renderer::Init();
         Texture2D::Init();
 
-        MainCamera = std::shared_ptr<Camera>();
+        MainCamera = std::make_shared<Camera>();
 
         TUNGSTEN_INFO("Tungsten Initialized: Starting Runtime");
         mRunning = true;
