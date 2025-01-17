@@ -11,6 +11,8 @@
 
 namespace Tungsten
 {
+
+    std::shared_ptr<Camera> Engine::MainCamera = nullptr;
     Engine* Engine::sInstance = nullptr;
 
     Engine::Engine(const std::string &title)
@@ -28,6 +30,8 @@ namespace Tungsten
         Renderer::Init();
         Texture2D::Init();
 
+        MainCamera = std::shared_ptr<Camera>();
+
         TUNGSTEN_INFO("Tungsten Initialized: Starting Runtime");
         mRunning = true;
     }
@@ -36,12 +40,16 @@ namespace Tungsten
     {
     }
 
-    void Engine::Run(std::function<void()> updateFunc)
+    void Engine::Run(const std::function<void()>& updateFunc, const std::function<void()>& startFunc)
     {
+        startFunc();
+
         while(mRunning)
         {
             Renderer::SetClearColor(0.1f, 0.1f, 0.1f);
             Renderer::Clear();
+
+            Renderer::StartScene(MainCamera->GetViewProjection());
 
             updateFunc();
 

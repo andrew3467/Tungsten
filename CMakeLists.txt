@@ -31,8 +31,9 @@ target_include_directories(
 
 target_link_libraries(
         Tungsten
-        PRIVATE
+        PUBLIC
         spdlog::spdlog
+        PRIVATE
         glad::glad
         glfw
         glm::glm
@@ -42,7 +43,7 @@ target_link_libraries(
 
 target_precompile_headers(
         Tungsten
-        PRIVATE
+        PUBLIC
         src/Tungsten/tungstenpch.h
 )
 

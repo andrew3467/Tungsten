@@ -79,4 +79,9 @@ namespace Tungsten {
         glfwPollEvents();
         glfwSwapBuffers(mWindow);
     }
+
+    void Window::ToggleCursor(bool b)
+    {
+        glfwSetInputMode((GLFWwindow*)mWindow, GLFW_CURSOR, b ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
+    }
 } // Tungsten

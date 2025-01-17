@@ -6,6 +6,7 @@
 #pragma once
 
 #include "Window.h"
+#include "Camera.h"
 
 namespace Tungsten
 {
@@ -19,7 +20,7 @@ namespace Tungsten
         bool IsRunning() const {return mRunning;}
         void Close() {mRunning = false;}
 
-        void Run(std::function<void()> updateFunc);
+        void Run(const std::function<void()>& updateFunc, const std::function<void()>& startFunc);
 
         Window& GetWindow() {return *mWindow;}
 
@@ -35,5 +36,8 @@ namespace Tungsten
         bool mRunning = false;
 
         std::shared_ptr<Window> mWindow;
+
+    public:
+        static std::shared_ptr<Camera> MainCamera;
     };
 }

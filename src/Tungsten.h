@@ -9,6 +9,7 @@
 
 
 #include "Tungsten/Core/Engine.h"
+#include "Tungsten/Core/Input.h"
 
 #include "Tungsten/Core/Logger.h"
 #include "Tungsten/Core/Window.h"

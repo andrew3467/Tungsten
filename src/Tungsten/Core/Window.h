@@ -29,6 +29,9 @@ namespace Tungsten {
         void Update();
 
         glm::vec2 GetSize() { return {mData.Width, mData.Height}; }
+        float GetAspect() {return (float)mData.Width / (float)mData.Height;}
+
+        void ToggleCursor(bool b);
 
     private:
         struct WindowData {
