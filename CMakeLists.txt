@@ -26,6 +26,7 @@ target_include_directories(
         PRIVATE
         src/Tungsten
         External/stb
+        PUBLIC
         External/imgui
 )
 
@@ -33,12 +34,12 @@ target_link_libraries(
         Tungsten
         PUBLIC
         spdlog::spdlog
+        ImGui
         PRIVATE
         glad::glad
         glfw
         glm::glm
         stb
-        ImGui
 )
 
 target_precompile_headers(

@@ -1,9 +1,10 @@
 cmake_minimum_required(VERSION 3.27)
 project(ImGui)
 
-set(CMAKE_CXX_STANDARD 23)
-
 find_package(glfw3 CONFIG REQUIRED)
+
+
+set(CMAKE_CXX_STANDARD 23)
 
 set(SOURCE
         imgui_widgets.cpp

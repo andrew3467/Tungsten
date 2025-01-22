@@ -22,12 +22,13 @@ namespace Tungsten
         Logger::Init();
         Time::Init();
 
-
         mWindow = std::make_shared<Window>(WindowProps(1280, 720, title));
 
 
         Renderer::Init();
         Texture2D::Init();
+
+        mImGuiLayer.Init();
 
         MainCamera = std::make_shared<Camera>();
 
@@ -39,7 +40,7 @@ namespace Tungsten
     {
     }
 
-    void Engine::Run(const std::function<void()>& updateFunc, const std::function<void()>& startFunc)
+    void Engine::Run(const std::function<void()>& updateFunc, const std::function<void()>& startFunc, const std::function<void()> imGuiFunc)
     {
         startFunc();
 
@@ -51,6 +52,14 @@ namespace Tungsten
             Renderer::StartScene(MainCamera->GetViewProjection());
 
             updateFunc();
+
+            if(imGuiFunc) {
+                mImGuiLayer.Begin();
+
+                imGuiFunc();
+
+                mImGuiLayer.End();
+            }
 
             mWindow->Update();
             Time::Update();

@@ -7,6 +7,7 @@
 
 #include "Window.h"
 #include "Camera.h"
+#include "ImGuiLayer.h"
 
 namespace Tungsten
 {
@@ -20,7 +21,7 @@ namespace Tungsten
         bool IsRunning() const {return mRunning;}
         void Close() {mRunning = false;}
 
-        void Run(const std::function<void()>& updateFunc, const std::function<void()>& startFunc);
+        void Run(const std::function<void()>& updateFunc, const std::function<void()>& startFunc, const std::function<void()> imGuiFunc = nullptr);
 
         Window& GetWindow() {return *mWindow;}
 
@@ -36,6 +37,7 @@ namespace Tungsten
         bool mRunning = false;
 
         std::shared_ptr<Window> mWindow;
+        ImGuiLayer mImGuiLayer;
 
     public:
         static std::shared_ptr<Camera> MainCamera;
