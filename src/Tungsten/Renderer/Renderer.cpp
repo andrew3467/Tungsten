@@ -17,12 +17,6 @@
 
 namespace Tungsten::Renderer
 {
-    struct Vertex {
-        glm::vec3 Position;
-        glm::vec3 Normal;
-        glm::vec2 TexCoord;
-    };
-
     struct RendererData
     {
         std::shared_ptr<VertexArray> QuadVA;
@@ -57,7 +51,7 @@ namespace Tungsten::Renderer
             };
             VB->SetLayout(layout);
 
-            auto IB = IndexBuffer::Create(indices, sizeof(indices) / sizeof(unsigned int));
+            auto IB = IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 
 
             sData.QuadVA = VertexArray::Create();
@@ -123,7 +117,7 @@ namespace Tungsten::Renderer
             };
             VB->SetLayout(layout);
 
-            auto IB = IndexBuffer::Create(indices, sizeof(indices) / sizeof(unsigned int));
+            auto IB = IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 
 
             sData.CubeVA = VertexArray::Create();
@@ -140,6 +134,8 @@ namespace Tungsten::Renderer
     {
         int success = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
         TUNGSTEN_ASSERT(success, "Failed to load OpenGL functions");
+
+        glEnable(GL_DEPTH_TEST);
 
         Shader::Init();
 
@@ -159,12 +155,13 @@ namespace Tungsten::Renderer
     void ToggleWireframe()
     {
         static bool toggle = false;
+        toggle = !toggle;
         glPolygonMode(GL_FRONT_AND_BACK, toggle ? GL_LINE : GL_FILL);
     }
 
     void Clear()
     {
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
     void StartScene(const glm::mat4 &viewProj)
@@ -172,6 +169,24 @@ namespace Tungsten::Renderer
         sData.ViewProj = viewProj;
     }
 
+    void Draw(const std::shared_ptr<VertexArray> &VA, const glm::vec3& position) {
+        auto& shader = sData.UnlitShader;
+        shader->Bind();
+
+        shader->SetFloat3("uColor", glm::vec3(0.2f));
+
+        Texture2D::Get("Default")->Bind(0);
+
+        shader->SetFloat4x4("uModel",
+                            glm::scale(glm::translate(glm::mat4(1.0f), position), glm::vec3(1)));
+        shader->SetFloat4x4("uViewProj", sData.ViewProj);
+
+
+        VA->Bind();
+
+        //Draw Vertices
+        glDrawElements(GL_TRIANGLES, VA->GetIndexBuffer().GetCount(), GL_UNSIGNED_INT, nullptr);
+    }
 
 
 #pragma region 3D
@@ -208,7 +223,6 @@ namespace Tungsten::Renderer
     }
 
 #pragma endregion
-
 #pragma region 2D
     void DrawQuad(const glm::vec2 &position, const glm::vec2 &scale, const glm::vec3 &color)
     {

@@ -5,6 +5,7 @@
 
 #pragma once
 #include <glm/glm.hpp>
+#include "VertexArray.h"
 
 namespace Tungsten
 {
@@ -13,6 +14,12 @@ namespace Tungsten
 
 namespace Tungsten
 {
+    struct Vertex {
+        glm::vec3 Position;
+        glm::vec3 Normal;
+        glm::vec2 TexCoord;
+    };
+
     namespace Renderer
     {
         void Init();
@@ -25,6 +32,8 @@ namespace Tungsten
         void Clear();
 
         void StartScene(const glm::mat4& viewProj);
+
+        void Draw(const std::shared_ptr<VertexArray> &VA, const glm::vec3& position);
 
 #pragma region 3D
 
