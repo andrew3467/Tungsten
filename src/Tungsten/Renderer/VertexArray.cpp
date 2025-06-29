@@ -121,4 +121,14 @@ namespace Tungsten {
         glBindVertexArray(mRendererID);
         buffer->Bind();
     }
+
+    void VertexArray::LoadNewBufferData(int targetBufferIndex, float *data, uint32_t count) {
+        glBindVertexArray(mRendererID);
+        mVertexBuffers[targetBufferIndex]->SetData(data, count);
+    }
+
+    void VertexArray::LoadNewIndexData(uint32_t* data, uint32_t count) {
+        glBindVertexArray(mRendererID);
+        mIndexBuffer->SetData(data, count);
+    }
 } // Tungsten

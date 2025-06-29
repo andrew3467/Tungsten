@@ -112,7 +112,7 @@ class VertexBuffer {
         VertexBuffer(float* data, uint32_t count);
         ~VertexBuffer();
 
-        void SetData(float* data, uint32_t count) const;
+        void SetData(float* data, uint32_t count);
 
         void SetLayout(const BufferLayout& layout) {mLayout = layout;}
         const BufferLayout& GetLayout() const {return mLayout;}
@@ -137,6 +137,8 @@ class VertexBuffer {
         ~IndexBuffer();
 
         inline uint32_t GetCount() const {return mCount;}
+
+        void SetData(uint32_t *data, uint32_t count);
 
         void Bind() const;
         void Unbind() const;

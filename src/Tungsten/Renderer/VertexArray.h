@@ -21,6 +21,9 @@ namespace Tungsten {
         void Bind();
         void Unbind();
 
+        void LoadNewBufferData(int targetBufferIndex, float* data, uint32_t count);
+        void LoadNewIndexData(uint32_t *data, uint32_t count);
+
         std::vector<std::shared_ptr<VertexBuffer>>& GetVertexBuffer() { return mVertexBuffers;}
         IndexBuffer& GetIndexBuffer() { return *mIndexBuffer;}
 
@@ -35,5 +38,6 @@ namespace Tungsten {
 
         std::vector<std::shared_ptr<VertexBuffer>> mVertexBuffers;
         std::shared_ptr<IndexBuffer> mIndexBuffer;
+
     };
     }

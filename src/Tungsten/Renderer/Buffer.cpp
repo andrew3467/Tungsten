@@ -10,16 +10,18 @@ namespace Tungsten {
     VertexBuffer::VertexBuffer(float *data, uint32_t count) {
         glGenBuffers(1, &mRendererID);
         glBindBuffer(GL_ARRAY_BUFFER, mRendererID);
-        glBufferData(GL_ARRAY_BUFFER, count * sizeof(float), data, GL_STATIC_DRAW);
+        SetData(data, count);
     }
 
     VertexBuffer::~VertexBuffer() {
         glDeleteBuffers(1, &mRendererID);
     }
 
-    void VertexBuffer::SetData(float *data, uint32_t count) const {
+    void VertexBuffer::SetData(float *data, uint32_t count) {
         glBindBuffer(GL_ARRAY_BUFFER, mRendererID);
-        glBufferData(GL_ARRAY_BUFFER, count * sizeof(float), data, GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, count * sizeof(float), data, GL_DYNAMIC_DRAW);
+
+        mCount = count;
     }
 
     void VertexBuffer::Bind() const {
@@ -34,11 +36,16 @@ namespace Tungsten {
 
 
     IndexBuffer::IndexBuffer(uint32_t *data, uint32_t count)
-            : mCount(count)
     {
         glGenBuffers(1, &mRendererID);
+        SetData(data, count);
+    }
+
+    void IndexBuffer::SetData(uint32_t *data, uint32_t count) {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mRendererID);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint32_t) * count, data, GL_STATIC_DRAW);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), data, GL_DYNAMIC_DRAW);
+
+        mCount = count;
     }
 
     IndexBuffer::~IndexBuffer() {

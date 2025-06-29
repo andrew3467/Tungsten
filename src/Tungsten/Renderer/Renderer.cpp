@@ -8,6 +8,7 @@
 #include <GLFW/glfw3.h>
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/ext/matrix_transform.hpp>
+#include <Core/Light.h>
 
 #include "Shader.h"
 #include "VertexArray.h"
@@ -23,6 +24,7 @@ namespace Tungsten::Renderer
         std::shared_ptr<VertexArray> CubeVA;
 
         std::shared_ptr<Shader> UnlitShader;
+        std::shared_ptr<Shader> LitShader;
 
         glm::mat4 ViewProj;
     } sData;
@@ -62,7 +64,7 @@ namespace Tungsten::Renderer
 
         {
             Vertex vertices[] = {
-                {{-0.5f, -0.5f, -0.5f}, {0.0f, 0.0f, -1.0f}, {0.0f, 0.0f}},  // A 0
+                    {{-0.5f, -0.5f, -0.5f}, {0.0f, 0.0f, -1.0f}, {0.0f, 0.0f}},  // A 0
                     {{0.5f, -0.5f, -0.5f}, {0.0f, 0.0f, -1.0f}, {1.0f, 0.0f}},  // B 1
                     {{0.5f, 0.5f, -0.5f}, {0.0f, 0.0f, -1.0f}, {1.0f, 1.0f}},  // C 2
                     {{-0.5f, 0.5f, -0.5f}, {0.0f, 0.0f, -1.0f}, {0.0f, 1.0f}},  // D 3
@@ -89,23 +91,23 @@ namespace Tungsten::Renderer
                     {{-0.5f, 0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}, {1.0f, 1.0f}},  // H 22
                     {{0.5f, 0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}, {0.0f, 1.0f}},  // G 23
             };
-
             uint32_t indices[] = {
-                // front and back
-                0, 3, 2,
-                2, 1, 0,
-                4, 5, 6,
-                6, 7 ,4,
-                // left and right
-                11, 8, 9,
-                9, 10, 11,
-                12, 13, 14,
-                14, 15, 12,
-                // bottom and top
-                16, 17, 18,
-                18, 19, 16,
-                20, 21, 22,
-                22, 23, 20
+
+                    // front and back
+                    0, 3, 2,
+                    2, 1, 0,
+                    4, 5, 6,
+                    6, 7 ,4,
+                    // left and right
+                    11, 8, 9,
+                    9, 10, 11,
+                    12, 13, 14,
+                    14, 15, 12,
+                    // bottom and top
+                    16, 17, 18,
+                    18, 19, 16,
+                    20, 21, 22,
+                    22, 23, 20
             };
 
             auto VB = VertexBuffer::Create(reinterpret_cast<float*>(&vertices), sizeof(vertices) / sizeof(float));
@@ -127,6 +129,7 @@ namespace Tungsten::Renderer
         }
 
         sData.UnlitShader = Shader::Get("Basic_Unlit");
+        sData.LitShader = Shader::Get("Basic_Lit");
     }
 
 
@@ -169,8 +172,49 @@ namespace Tungsten::Renderer
         sData.ViewProj = viewProj;
     }
 
+    void SetDirectionalLightData(DirectionalLight dirLight) {
+        auto& shader = *sData.LitShader;
+
+        shader.Bind();
+
+        shader.SetFloat3("uDirLight.dir", dirLight.Direction);
+        shader.SetFloat3("uDirLight.color", dirLight.Color);
+
+        shader.Unbind();
+    }
+
+    void SetPointLightData(std::vector<PointLight> lights) {
+        auto& shader = *sData.LitShader;
+
+        shader.Bind();
+
+        shader.SetInt("uNumLights", lights.size());
+        for(int i = 0; i < lights.size(); i++) {
+            shader.SetFloat3("uPointLights[" + std::to_string(i) + "].Position", lights[i].Position);
+            shader.SetFloat3("uPointLights[" + std::to_string(i) + "].Color", lights[i].Color);
+            shader.SetFloat("uPointLights[" + std::to_string(i) + "].Constant", lights[i].Constant);
+            shader.SetFloat("uPointLights[" + std::to_string(i) + "].Linear", lights[i].Linear);
+            shader.SetFloat("uPointLights[" + std::to_string(i) + "].Quadratic", lights[i].Quadratic);
+        }
+
+        shader.Unbind();
+    }
+
+    void UpdateViewPos(const glm::vec3 &position) {
+        {
+            auto& shader = *sData.LitShader;
+            shader.Bind();
+            shader.SetFloat3("uViewPos", position);
+        }
+        {
+            auto& shader = *sData.UnlitShader;
+            shader.Bind();
+            shader.SetFloat3("uViewPos", position);
+        }
+    }
+
     void Draw(const std::shared_ptr<VertexArray> &VA, const glm::vec3& position) {
-        auto& shader = sData.UnlitShader;
+        auto& shader = sData.LitShader;
         shader->Bind();
 
         shader->SetFloat3("uColor", glm::vec3(0.2f));
@@ -188,12 +232,22 @@ namespace Tungsten::Renderer
         glDrawElements(GL_TRIANGLES, VA->GetIndexBuffer().GetCount(), GL_UNSIGNED_INT, nullptr);
     }
 
+    void Renderer::Draw(const std::shared_ptr<Mesh> &mesh, const glm::vec3 &position) {
+        if(mesh->GetVertexCount() == 0) { TUNGSTEN_ERROR("ERROR: Tried to draw mesh with no vertices!"); return; }
+
+        Draw(mesh->GetVertexArray(), position);
+    }
+
 
 #pragma region 3D
 
-    void DrawCube(const glm::vec3 &position, const glm::vec3 &scale, const glm::vec3 &color)
+    void DrawCube(const glm::vec3 &position, const glm::vec3 &scale, const glm::vec3 &color, bool wireframe)
     {
+        if(wireframe) glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
         DrawCube(position, scale, Texture2D::Get("Default"), color);
+
+        if(wireframe) glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
 
     void DrawCube(const glm::vec3 &position, const glm::vec3 &scale, const std::shared_ptr<Texture2D> &texture)
