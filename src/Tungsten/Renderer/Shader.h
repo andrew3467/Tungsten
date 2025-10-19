@@ -17,6 +17,7 @@ namespace Tungsten
         static std::unordered_map<std::string, std::shared_ptr<Shader>> GetShaders();
 
         [[nodiscard]] const std::string& GetName() const {return mName;}
+        static const std::vector<std::string> GetNames();
 
         Shader(const std::string &srcPath);
         ~Shader();

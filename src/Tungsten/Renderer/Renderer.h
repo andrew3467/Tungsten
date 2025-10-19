@@ -21,6 +21,8 @@ namespace Tungsten
     {
         void Init();
 
+        void OnImGUIDrawRenderer();
+
         void SetClearColor(float r, float g, float b);
         void SetViewport(float x, float y, float width, float height);
 

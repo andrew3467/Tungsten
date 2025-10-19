@@ -4,10 +4,15 @@
 
 #include "Renderer.h"
 
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
+#include <imgui.h>
+
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/ext/matrix_transform.hpp>
+
 #include <Core/Light.h>
 
 #include "Shader.h"
@@ -23,11 +28,16 @@ namespace Tungsten::Renderer
         std::shared_ptr<VertexArray> QuadVA;
         std::shared_ptr<VertexArray> CubeVA;
 
-        std::shared_ptr<Shader> UnlitShader;
-        std::shared_ptr<Shader> LitShader;
+        std::shared_ptr<Shader> Shader;
 
         glm::mat4 ViewProj;
+
+
     } sData;
+
+    struct ImGUIDrawData {
+        bool wireframe = false;
+    } sImGuiData;
 
     void InitData()
     {
@@ -128,8 +138,36 @@ namespace Tungsten::Renderer
             sData.CubeVA->SetIndexBuffer(IB);
         }
 
-        sData.UnlitShader = Shader::Get("Basic_Unlit");
-        sData.LitShader = Shader::Get("Basic_Lit");
+        sData.Shader = Shader::Get("Basic_Lit");
+    }
+
+    void OnImGUIDrawRenderer() {
+        ImGui::Begin("Renderer Debug");
+
+        if (ImGui::Checkbox("Wireframe", &sImGuiData.wireframe)) ToggleWireframe();
+
+        //Shader Selector
+        auto shaderNames = Shader::GetNames();
+
+
+        static int curItem = 0;
+
+        ImGuiComboFlags flags = ImGuiComboFlags_NoPreview | ImGuiComboFlags_HeightRegular;
+        if (ImGui::BeginCombo(shaderNames[curItem].c_str(), "", flags)) {
+
+            for (int i = 0; i < shaderNames.size(); i++) {
+                bool selected = curItem == i;
+
+                if (ImGui::Selectable(shaderNames[i].c_str(), selected)) {
+                    curItem = i;
+                    sData.Shader = Shader::Get(shaderNames[i]);
+                }
+            }
+
+            ImGui::EndCombo();
+        }
+
+        ImGui::End();
     }
 
 
@@ -173,48 +211,44 @@ namespace Tungsten::Renderer
     }
 
     void SetDirectionalLightData(DirectionalLight dirLight) {
-        auto& shader = *sData.LitShader;
+        for(auto& [name, shader] : Shader::GetShaders()){
+            shader->Bind();
 
-        shader.Bind();
+            shader->SetFloat3("uDirLight.dir", glm::normalize(dirLight.Direction));
+            shader->SetFloat3("uDirLight.color", dirLight.Color);
 
-        shader.SetFloat3("uDirLight.dir", dirLight.Direction);
-        shader.SetFloat3("uDirLight.color", dirLight.Color);
-
-        shader.Unbind();
+            shader->Unbind();
+        }
     }
 
     void SetPointLightData(std::vector<PointLight> lights) {
-        auto& shader = *sData.LitShader;
+        for(auto& [name, shader] : Shader::GetShaders()) {
+            shader->Bind();
 
-        shader.Bind();
+            shader->SetInt("uNumLights", lights.size());
+            for (int i = 0; i < lights.size(); i++) {
+                shader->SetFloat3("uPointLights[" + std::to_string(i) + "].Position", lights[i].Position);
+                shader->SetFloat3("uPointLights[" + std::to_string(i) + "].Color", lights[i].Color);
+                shader->SetFloat("uPointLights[" + std::to_string(i) + "].Constant", lights[i].Constant);
+                shader->SetFloat("uPointLights[" + std::to_string(i) + "].Linear", lights[i].Linear);
+                shader->SetFloat("uPointLights[" + std::to_string(i) + "].Quadratic", lights[i].Quadratic);
+            }
 
-        shader.SetInt("uNumLights", lights.size());
-        for(int i = 0; i < lights.size(); i++) {
-            shader.SetFloat3("uPointLights[" + std::to_string(i) + "].Position", lights[i].Position);
-            shader.SetFloat3("uPointLights[" + std::to_string(i) + "].Color", lights[i].Color);
-            shader.SetFloat("uPointLights[" + std::to_string(i) + "].Constant", lights[i].Constant);
-            shader.SetFloat("uPointLights[" + std::to_string(i) + "].Linear", lights[i].Linear);
-            shader.SetFloat("uPointLights[" + std::to_string(i) + "].Quadratic", lights[i].Quadratic);
+            shader->Unbind();
         }
-
-        shader.Unbind();
     }
 
     void UpdateViewPos(const glm::vec3 &position) {
-        {
-            auto& shader = *sData.LitShader;
-            shader.Bind();
-            shader.SetFloat3("uViewPos", position);
-        }
-        {
-            auto& shader = *sData.UnlitShader;
-            shader.Bind();
-            shader.SetFloat3("uViewPos", position);
+        for(auto& [name, shader] : Shader::GetShaders()) {
+            shader->Bind();
+
+            shader->SetFloat3("uViewPos", position);
+            shader->SetFloat4x4("uViewProj", sData.ViewProj);
         }
     }
 
     void Draw(const std::shared_ptr<VertexArray> &VA, const glm::vec3& position) {
-        auto& shader = sData.LitShader;
+        auto& shader = sData.Shader;
         shader->Bind();
 
         shader->SetFloat3("uColor", glm::vec3(0.2f));
@@ -223,8 +257,6 @@ namespace Tungsten::Renderer
 
         shader->SetFloat4x4("uModel",
                             glm::scale(glm::translate(glm::mat4(1.0f), position), glm::vec3(1)));
-        shader->SetFloat4x4("uViewProj", sData.ViewProj);
-
 
         VA->Bind();
 
@@ -258,7 +290,7 @@ namespace Tungsten::Renderer
     void DrawCube(const glm::vec3 &position, const glm::vec3 &scale, const std::shared_ptr<Texture2D> &texture,
         const glm::vec3 &color)
     {
-        const auto& shader = sData.UnlitShader;
+        const auto& shader = sData.Shader;
         shader->Bind();
 
         shader->SetFloat3("uColor", color);
@@ -267,7 +299,6 @@ namespace Tungsten::Renderer
 
         shader->SetFloat4x4("uModel",
             glm::scale(glm::translate(glm::mat4(1.0f), position), scale));
-        shader->SetFloat4x4("uViewProj", sData.ViewProj);
 
 
         sData.CubeVA->Bind();
@@ -298,7 +329,7 @@ namespace Tungsten::Renderer
     void DrawQuad(const glm::vec3 &position, const glm::vec3 &scale, const std::shared_ptr<Texture2D> &texture,
         const glm::vec3 &color)
     {
-        const auto& shader = sData.UnlitShader;
+        const auto& shader = sData.Shader;
         shader->Bind();
 
         shader->SetFloat3("uColor", color);
@@ -307,7 +338,6 @@ namespace Tungsten::Renderer
 
         shader->SetFloat4x4("uModel",
             glm::scale(glm::translate(glm::mat4(1.0f), position), scale));
-        shader->SetFloat4x4("uViewProj", sData.ViewProj);
 
 
         sData.QuadVA->Bind();

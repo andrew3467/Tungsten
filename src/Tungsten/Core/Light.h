@@ -17,8 +17,8 @@ namespace Tungsten {
         glm::vec3 Position;
         glm::vec3 Color {1,1,1};
 
-        float Constant;
-        float Linear;
-        float Quadratic;
+        float Constant = 1.0f;
+        float Linear = 0.09f;
+        float Quadratic = 0.032f;
     };
 }

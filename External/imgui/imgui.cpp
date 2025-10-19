@@ -17666,7 +17666,7 @@ bool ImGui::DockNodeCalcDropRectsAndTestMousePos(const ImRect& parent, ImGuiDir 
     {
         //hs_w = ImTrunc(ImClamp(parent_smaller_axis - hs_for_central_nodes * 4.0f, g.FontSize * 0.5f, g.FontSize * 8.0f));
         //hs_h = ImTrunc(hs_w * 0.15f);
-        //off = ImVec2(ImTrunc(parent.GetWidth() * 0.5f - GetFrameHeightWithSpacing() * 1.4f - hs_h), ImTrunc(parent.GetHeight() * 0.5f - GetFrameHeightWithSpacing() * 1.4f - hs_h));
+        //off = ImVec2(ImTrunc(parent.GetWidth() * 0.5f - GetFrameHeightWithSpacing() * 1.4f - hs_h), ImTrunc(parent.ToIndex1D() * 0.5f - GetFrameHeightWithSpacing() * 1.4f - hs_h));
         hs_w = ImTrunc(hs_for_central_nodes * 1.50f);
         hs_h = ImTrunc(hs_for_central_nodes * 0.80f);
         off = ImTrunc(ImVec2(parent.GetWidth() * 0.5f - hs_h, parent.GetHeight() * 0.5f - hs_h));

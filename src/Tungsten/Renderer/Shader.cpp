@@ -271,5 +271,15 @@ namespace Tungsten
         glUniformMatrix3fv(GetUniformLoc(name), 1, GL_FALSE, glm::value_ptr(v));
     }
 
+    const std::vector<std::string> Shader::GetNames() {
+        std::vector<std::string> names;
+
+        for(auto& [name, shader] : sShaders) {
+            names.push_back(name);
+        }
+
+        return names;
+    }
+
 #pragma endregion
 }
