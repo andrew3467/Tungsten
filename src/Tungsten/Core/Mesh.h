@@ -21,6 +21,7 @@ namespace Tungsten {
 
         void SetVertices(const std::vector<Vertex>& vertices);
         void SetIndices(const std::vector<uint32_t>& indices);
+        void SetNormals(const std::vector<glm::vec3>& normals);
 
         const std::shared_ptr<VertexArray>& GetVertexArray();
 

@@ -63,6 +63,15 @@ namespace Tungsten {
         mDirty = true;
     }
 
+    void Mesh::SetNormals(const std::vector<glm::vec3> &normals) {
+
+        for(int i = 0; i < mVertices.size(); i++) {
+            mVertices[i].Normal = normals[i];
+        }
+
+        mDirty = true;
+    }
+
     const std::shared_ptr<VertexArray>& Mesh::GetVertexArray() {
         if(mDirty) {
             mVA->LoadNewBufferData(0, &mVertices[0].Position.x, mVertices.size() * (sizeof(Tungsten::Vertex) / sizeof(float)));

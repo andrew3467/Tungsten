@@ -26,6 +26,10 @@ inline void CheckOpenGLError(const char* stmt, const char* fname, int line)
     #define GL_CHECK(stmt) stmt
 #endif
 
+#define GLM_ENABLE_EXPERIMENTAL
+#include "glm/gtx/hash.hpp"
+
+
 #include "Tungsten/Core/Engine.h"
 #include "Tungsten/Core/Input.h"
 
