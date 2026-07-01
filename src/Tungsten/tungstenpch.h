@@ -26,7 +26,7 @@
 #include "Core/Logger.h"
 
 
-#define ASSETS_DIR std::string("../../assets/")
+#define ASSET_DIR std::string(ASSETS_DIR)
 
 //Engine Types
 #define TUNGSTEN_BIND_EVENT_FUNC(x) std::bind(&x, this, std::placeholders::_1)

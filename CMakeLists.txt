@@ -1,7 +1,11 @@
 cmake_minimum_required(VERSION 3.29)
-project(src/Tungsten)
+project(Tungsten)
 
 set(CMAKE_CXX_STANDARD 23)
+
+
+option(TUNGSTEN_DEV_RUN_TESTS "Build tests" ON)
+
 
 find_package(spdlog CONFIG REQUIRED)
 find_package(glad CONFIG REQUIRED)
@@ -9,7 +13,9 @@ find_package(glfw3 CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
 
 
-add_subdirectory(External)
+
+add_subdirectory(external)
+
 
 
 file(GLOB_RECURSE SRC src/*.cpp)
@@ -25,9 +31,9 @@ target_include_directories(
         Tungsten
         PRIVATE
         src/Tungsten
-        External/stb
+        external/stb
         PUBLIC
-        External/imgui
+        external/imgui
 )
 
 target_link_libraries(
@@ -53,4 +59,10 @@ target_compile_definitions(
         PRIVATE
 
         GLFW_INCLUDE_NONE
+        ASSETS_DIR="${CMAKE_SOURCE_DIR}/assets"
 )
+
+
+if(TUNGSTEN_DEV_RUN_TESTS)
+        add_subdirectory(tests)
+endif()

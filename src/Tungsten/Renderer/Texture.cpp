@@ -126,7 +126,7 @@ CheckOpenGLError(#stmt, __FILE__, __LINE__); \
         }
 
 
-        for(auto& file : fs::directory_iterator(ASSETS_DIR + "textures/")) {
+        for(auto& file : fs::directory_iterator(ASSET_DIR + "/textures/")) {
             std::string path = file.path().string();
 
             auto texture = Texture2D::Create(path);

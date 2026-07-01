@@ -16,7 +16,7 @@ namespace Tungsten
     std::unordered_map<std::string, std::shared_ptr<Shader>> sShaders;
 
     void Shader::Init() {
-        auto path = ASSETS_DIR + "shaders/";
+        auto path = ASSET_DIR + "/shaders/";
         for(auto& file : fs::directory_iterator(path)) {
             std::string path = file.path().string();
 
