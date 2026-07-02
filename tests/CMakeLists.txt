@@ -14,6 +14,12 @@ target_link_libraries(
         Tungsten
 )
 
+target_precompile_headers(
+        TungstenTests
+        PRIVATE
+        ../src/Tungsten/tungstenpch.h
+)
+
 target_include_directories(
         TungstenTests
         PRIVATE

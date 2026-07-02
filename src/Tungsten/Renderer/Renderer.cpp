@@ -181,6 +181,8 @@ namespace Tungsten::Renderer
         Shader::Init();
 
         InitData();
+
+        TUNGSTEN_INFO("Renderer Initialized");
     }
 
     void SetClearColor(float r, float g, float b)
