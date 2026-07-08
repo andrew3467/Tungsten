@@ -21,7 +21,7 @@ namespace Tungsten
         bool IsRunning() const {return mRunning;}
         void Close() {mRunning = false;}
 
-        void Run(const std::function<void()>& updateFunc, const std::function<void()>& startFunc, const std::function<void()> imGuiFunc = nullptr);
+        void Run(const std::function<void()>& updateFunc, const std::function<void()>& startFunc, const std::function<void()>& imGuiFunc = nullptr);
 
         Window& GetWindow() {return *mWindow;}
 

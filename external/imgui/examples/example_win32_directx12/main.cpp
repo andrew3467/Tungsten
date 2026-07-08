@@ -1,4 +1,4 @@
-// Dear ImGui: standalone example application for DirectX 12
+// Dear ImGui: standalone examples application for DirectX 12
 
 // Learn about Dear ImGui:
 // - FAQ                  https://dearimgui.com/faq
@@ -8,7 +8,7 @@
 
 // Important: to compile on 32-bit systems, the DirectX12 backend requires code to be compiled with '#define ImTextureID ImU64'.
 // This is because we need ImTextureID to carry a 64-bit value and by default ImTextureID is defined as void*.
-// This define is set in the example .vcxproj file and need to be replicated in your app or by adding it to your imconfig.h file.
+// This define is set in the examples .vcxproj file and need to be replicated in your app or by adding it to your imconfig.h file.
 
 #include "imgui.h"
 #include "imgui_impl_win32.h"

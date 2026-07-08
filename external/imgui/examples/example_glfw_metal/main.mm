@@ -1,4 +1,4 @@
-// Dear ImGui: standalone example application for GLFW + Metal, using programmable pipeline
+// Dear ImGui: standalone examples application for GLFW + Metal, using programmable pipeline
 // (GLFW is a cross-platform general purpose library for handling windows, inputs, OpenGL/Vulkan/Metal graphics context creation, etc.)
 
 // Learn about Dear ImGui:
@@ -71,7 +71,7 @@ int main(int, char**)
 
     // Create window with graphics context
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-    GLFWwindow* window = glfwCreateWindow(1280, 720, "Dear ImGui GLFW+Metal example", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(1280, 720, "Dear ImGui GLFW+Metal examples", nullptr, nullptr);
     if (window == nullptr)
         return 1;
 

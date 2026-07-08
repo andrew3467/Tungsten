@@ -10,17 +10,16 @@
 
 
 #include "CameraController.h"
-#include "Tests/LitCube.h"
-#include "Tests/MultipleLit.h"
-
+#include "Examples/LitCube.h"
+#include "Examples/MultipleLit.h"
 using namespace Tungsten;
 
 
 int TestSelection = 0;
 int PrevTestSelection = 0;
-std::array<std::unique_ptr<Test>, 2> Tests {
-        std::make_unique<LitCubeTest>(),
-        std::make_unique<MultipleLitTest>(),
+std::array<std::unique_ptr<Example>, 2> Tests {
+        std::make_unique<LitCubeExample>(),
+        std::make_unique<MultipleLitExample>(),
 };
 
 
@@ -33,7 +32,6 @@ void Start() {
 
 void Update() {
     CamController->Update();
-    Renderer::UpdateViewPos(CamController->GetPosition());
 
     if (TestSelection == -1) return;
 
@@ -47,22 +45,12 @@ void Update() {
     Tests[TestSelection]->Update();
 }
 
-
-bool SelectionState[16] {
-        true
-};
 void DrawTestSelection() {
     PrevTestSelection = TestSelection;
-    for (int i = 0; i < Tests.size(); ++i) {
-        if(ImGui::Checkbox(Tests[i]->Name().c_str(), &SelectionState[i])) {
-            if(SelectionState[i]) {
-                for (int j = 0; j < 16; ++j) {
-                    if(j != i) SelectionState[j] = false;
-                }
-
-                TestSelection = i;
-            }
-        }
+    for(int i = 0; i < Tests.size(); i++) {
+        ImGui::RadioButton(Tests[i]->Name().c_str(),
+                           &TestSelection,
+                           i);
     }
 }
 
@@ -70,16 +58,19 @@ void OnImGuiRender() {
     Renderer::OnImGUIDrawRenderer();
 
 
-    ImGui::Begin("Test Options");
+    ImGui::Begin("Example Options");
 
     DrawTestSelection();
+
+    ImGui::SeparatorText(Tests[TestSelection]->Name().c_str());
+    Tests[TestSelection]->OnImGuiRender();
 
 
     ImGui::End();
 }
 
 int main() {
-    Engine engine("Tungsten tests");
+    Engine engine("Tungsten examples");
 
     engine.Run(&Update, &Start, &OnImGuiRender);
 }

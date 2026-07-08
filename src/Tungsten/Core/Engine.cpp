@@ -8,6 +8,7 @@
 #include "Time.h"
 #include "../Renderer/Renderer.h"
 #include "Renderer/Texture.h"
+#include "Primitive.h"
 
 namespace Tungsten
 {
@@ -26,6 +27,7 @@ namespace Tungsten
 
 
         Renderer::Init();
+        Primitive::Init();
         Texture2D::Init();
 
         mImGuiLayer.Init();
@@ -40,7 +42,7 @@ namespace Tungsten
     {
     }
 
-    void Engine::Run(const std::function<void()>& updateFunc, const std::function<void()>& startFunc, const std::function<void()> imGuiFunc)
+    void Engine::Run(const std::function<void()>& updateFunc, const std::function<void()>& startFunc, const std::function<void()>& imGuiFunc)
     {
         startFunc();
 
@@ -49,7 +51,7 @@ namespace Tungsten
             Renderer::SetClearColor(0.1f, 0.1f, 0.1f);
             Renderer::Clear();
 
-            Renderer::StartScene(MainCamera->GetViewProjection());
+            Renderer::StartScene(MainCamera->GetViewProjection(), MainCamera->GetPosition());
 
             updateFunc();
 

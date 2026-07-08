@@ -6,15 +6,15 @@
 #pragma once
 
 
-#include "Test.h"
+#include "Example.h"
 
 
-class MultipleLitTest : public Test {
+class MultipleLitExample : public Example {
 public:
-    MultipleLitTest() : Test("Multiple Lit") {}
+    MultipleLitExample() : Example("Multiple Lit") {}
 
     void Start() override {
-        Test::Start();
+        Example::Start();
     }
 
     void Update() override {
@@ -22,6 +22,10 @@ public:
     }
 
     void Unload() override {
+
+    }
+
+    void OnImGuiRender() override {
 
     }
 

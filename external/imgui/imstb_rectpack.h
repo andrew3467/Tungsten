@@ -18,7 +18,7 @@
 // the totally naive one in stb_truetype (which is primarily what
 // this is meant to replace).
 //
-// Has only had a few tests run, may have issues.
+// Has only had a few examples run, may have issues.
 //
 // More docs to come.
 //

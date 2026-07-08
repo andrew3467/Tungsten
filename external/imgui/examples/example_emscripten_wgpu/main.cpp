@@ -1,4 +1,4 @@
-// Dear ImGui: standalone example application for Emscripten, using GLFW + WebGPU
+// Dear ImGui: standalone examples application for Emscripten, using GLFW + WebGPU
 // (Emscripten is a C++-to-javascript compiler, used to publish executables for the web. See https://emscripten.org/)
 
 // Learn about Dear ImGui:
@@ -20,7 +20,7 @@
 #include <webgpu/webgpu.h>
 #include <webgpu/webgpu_cpp.h>
 
-// This example can also compile and run with Emscripten! See 'Makefile.emscripten' for details.
+// This examples can also compile and run with Emscripten! See 'Makefile.emscripten' for details.
 #ifdef __EMSCRIPTEN__
 #include "../libs/emscripten/emscripten_mainloop_stub.h"
 #endif
@@ -66,7 +66,7 @@ int main(int, char**)
     // Make sure GLFW does not initialize any graphics context.
     // This needs to be done explicitly later.
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-    GLFWwindow* window = glfwCreateWindow(1280, 720, "Dear ImGui GLFW+WebGPU example", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(1280, 720, "Dear ImGui GLFW+WebGPU examples", nullptr, nullptr);
     if (window == nullptr)
         return 1;
 

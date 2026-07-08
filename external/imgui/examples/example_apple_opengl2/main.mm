@@ -1,4 +1,4 @@
-// Dear ImGui: standalone example application for OSX + OpenGL2, using legacy fixed pipeline
+// Dear ImGui: standalone examples application for OSX + OpenGL2, using legacy fixed pipeline
 
 // Learn about Dear ImGui:
 // - FAQ                  https://dearimgui.com/faq
@@ -41,7 +41,7 @@
 -(void)initialize
 {
     // Setup Dear ImGui context
-    // FIXME: This example doesn't have proper cleanup...
+    // FIXME: This examples doesn't have proper cleanup...
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -91,7 +91,7 @@
     ImGui_ImplOSX_NewFrame(self);
     ImGui::NewFrame();
 
-    // Our state (make them static = more or less global) as a convenience to keep the example terse.
+    // Our state (make them static = more or less global) as a convenience to keep the examples terse.
     static bool show_demo_window = true;
     static bool show_another_window = false;
     static ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);

@@ -16,7 +16,7 @@
 
 // Usage:
 //   binary_to_compressed_c.exe [-base85] [-nocompress] [-nostatic] <inputfile> <symbolname>
-// Usage example:
+// Usage examples:
 //   # binary_to_compressed_c.exe myfont.ttf MyFont > myfont.cpp
 //   # binary_to_compressed_c.exe -base85 myfont.ttf MyFont > myfont.cpp
 

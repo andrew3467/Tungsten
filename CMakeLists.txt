@@ -64,5 +64,5 @@ target_compile_definitions(
 
 
 if(TUNGSTEN_DEV_RUN_TESTS)
-        add_subdirectory(tests)
+        add_subdirectory(examples)
 endif()

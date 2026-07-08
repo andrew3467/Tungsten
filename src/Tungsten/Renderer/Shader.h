@@ -23,12 +23,12 @@ namespace Tungsten
         ~Shader();
 
 
-
         void Bind() const;
         void Unbind() const;
 
 
         uint32_t GetUniformLoc(const std::string& name);
+        uint32_t GetID() const {return mRendererID;}
 
         void SetBool(const std::string& name, bool value);
 

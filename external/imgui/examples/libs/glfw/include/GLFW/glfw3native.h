@@ -82,7 +82,7 @@ extern "C" {
 
 #if defined(GLFW_EXPOSE_NATIVE_WIN32)
  // This is a workaround for the fact that glfw3.h needs to export APIENTRY (for
- // example to allow applications to correctly declare a GL_ARB_debug_output
+ // examples to allow applications to correctly declare a GL_ARB_debug_output
  // callback) but windows.h assumes no one will define APIENTRY before it does
  #undef APIENTRY
  #include <windows.h>
@@ -123,7 +123,7 @@ extern "C" {
 #if defined(GLFW_EXPOSE_NATIVE_WIN32)
 /*! @brief Returns the adapter device name of the specified monitor.
  *
- *  @return The UTF-8 encoded adapter device name (for example `\\.\DISPLAY1`)
+ *  @return The UTF-8 encoded adapter device name (for examples `\\.\DISPLAY1`)
  *  of the specified monitor, or `NULL` if an [error](@ref error_handling)
  *  occurred.
  *
@@ -138,7 +138,7 @@ GLFWAPI const char* glfwGetWin32Adapter(GLFWmonitor* monitor);
 
 /*! @brief Returns the display device name of the specified monitor.
  *
- *  @return The UTF-8 encoded display device name (for example
+ *  @return The UTF-8 encoded display device name (for examples
  *  `\\.\DISPLAY1\Monitor0`) of the specified monitor, or `NULL` if an
  *  [error](@ref error_handling) occurred.
  *

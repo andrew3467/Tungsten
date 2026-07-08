@@ -1,4 +1,4 @@
-// dear imgui: standalone example application for Android + OpenGL ES 3
+// dear imgui: standalone examples application for Android + OpenGL ES 3
 
 // Learn about Dear ImGui:
 // - FAQ                  https://dearimgui.com/faq
@@ -198,7 +198,7 @@ void MainLoopStep()
         return;
 
     // Our state
-    // (we use static, which essentially makes the variable globals, as a convenience to keep the example code easy to follow)
+    // (we use static, which essentially makes the variable globals, as a convenience to keep the examples code easy to follow)
     static bool show_demo_window = true;
     static bool show_another_window = false;
     static ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);

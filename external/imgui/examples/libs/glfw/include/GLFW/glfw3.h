@@ -520,7 +520,7 @@ extern "C" {
 #define GLFW_NO_CURRENT_CONTEXT     0x00010002
 /*! @brief One of the arguments to the function was an invalid enum value.
  *
- *  One of the arguments to the function was an invalid enum value, for example
+ *  One of the arguments to the function was an invalid enum value, for examples
  *  requesting [GLFW_RED_BITS](@ref window_hints_fb) with @ref
  *  glfwGetWindowAttrib.
  *
@@ -529,7 +529,7 @@ extern "C" {
 #define GLFW_INVALID_ENUM           0x00010003
 /*! @brief One of the arguments to the function was an invalid value.
  *
- *  One of the arguments to the function was an invalid value, for example
+ *  One of the arguments to the function was an invalid value, for examples
  *  requesting a non-existent OpenGL or OpenGL ES version like 2.7.
  *
  *  Requesting a valid but unavailable OpenGL or OpenGL ES version will instead
@@ -573,7 +573,7 @@ extern "C" {
  *  requirements.
  *
  *  @par
- *  Future invalid OpenGL and OpenGL ES versions, for example OpenGL 4.8 if 5.0
+ *  Future invalid OpenGL and OpenGL ES versions, for examples OpenGL 4.8 if 5.0
  *  comes out before the 4.x series gets that far, also fail with this error and
  *  not @ref GLFW_INVALID_VALUE, because GLFW cannot know what future versions
  *  will exist.
@@ -1795,7 +1795,7 @@ GLFWAPI void glfwWindowHint(int hint, int value);
  *  key is enabled in the application bundle's `Info.plist`.  For more
  *  information, see
  *  [High Resolution Guidelines for OS X](https://developer.apple.com/library/mac/documentation/GraphicsAnimation/Conceptual/HighResolutionOSX/Explained/Explained.html)
- *  in the Mac Developer Library.  The GLFW test and example programs use
+ *  in the Mac Developer Library.  The GLFW test and examples programs use
  *  a custom `Info.plist` template for this, which can be found as
  *  `CMake/MacOSXBundleInfo.plist.in` in the source tree.
  *
@@ -2091,7 +2091,7 @@ GLFWAPI void glfwSetWindowSizeLimits(GLFWwindow* window, int minwidth, int minhe
  *  function does nothing.
  *
  *  The aspect ratio is specified as a numerator and a denominator and both
- *  values must be greater than zero.  For example, the common 16:9 aspect ratio
+ *  values must be greater than zero.  For examples, the common 16:9 aspect ratio
  *  is specified as 16 and 9, respectively.
  *
  *  If the numerator and denominator is set to `GLFW_DONT_CARE` then the aspect
@@ -2574,7 +2574,7 @@ GLFWAPI GLFWwindowsizefun glfwSetWindowSizeCallback(GLFWwindow* window, GLFWwind
 /*! @brief Sets the close callback for the specified window.
  *
  *  This function sets the close callback of the specified window, which is
- *  called when the user attempts to close the window, for example by clicking
+ *  called when the user attempts to close the window, for examples by clicking
  *  the close widget in the title bar.
  *
  *  The close flag is set before this callback is called, but you can modify it
@@ -2607,7 +2607,7 @@ GLFWAPI GLFWwindowclosefun glfwSetWindowCloseCallback(GLFWwindow* window, GLFWwi
 /*! @brief Sets the refresh callback for the specified window.
  *
  *  This function sets the refresh callback of the specified window, which is
- *  called when the client area of the window needs to be redrawn, for example
+ *  called when the client area of the window needs to be redrawn, for examples
  *  if the window has been exposed after having been covered by another window.
  *
  *  On compositing window systems such as Aero, Compiz or Aqua, where the window
@@ -2892,7 +2892,7 @@ GLFWAPI int glfwGetInputMode(GLFWwindow* window, int mode);
  *    area of the window but does not restrict the cursor from leaving.
  *  - `GLFW_CURSOR_DISABLED` hides and grabs the cursor, providing virtual
  *    and unlimited cursor movement.  This is useful for implementing for
- *    example 3D camera controls.
+ *    examples 3D camera controls.
  *
  *  If the mode is `GLFW_STICKY_KEYS`, the value must be either `GLFW_TRUE` to
  *  enable sticky keys, or `GLFW_FALSE` to disable it.  If sticky keys are
@@ -3305,7 +3305,7 @@ GLFWAPI GLFWkeyfun glfwSetKeyCallback(GLFWwindow* window, GLFWkeyfun cbfun);
  *
  *  The character callback behaves as system text input normally does and will
  *  not be called if modifier keys are held down that would prevent normal text
- *  input on that platform, for example a Super (Command) key on OS X or Alt key
+ *  input on that platform, for examples a Super (Command) key on OS X or Alt key
  *  on Windows.  There is a
  *  [character with modifiers callback](@ref glfwSetCharModsCallback) that
  *  receives these events.

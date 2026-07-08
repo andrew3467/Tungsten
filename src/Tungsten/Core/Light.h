@@ -5,20 +5,22 @@
 
 #pragma once
 
-#include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
 
 namespace Tungsten {
-    struct DirectionalLight {
-        glm::vec3 Direction;
-        glm::vec3 Color {1,1,1};
+    struct alignas(16) DirectionalLight {
+        glm::vec4 Direction{0};
+        glm::vec4 Color {1};
     };
 
-    struct PointLight {
-        glm::vec3 Position;
-        glm::vec3 Color {1,1,1};
+    struct alignas(16) PointLight {
+        glm::vec4 Position {2,2,2,0};
+        glm::vec4 Color {1};
 
         float Constant = 1.0f;
         float Linear = 0.09f;
         float Quadratic = 0.032f;
+    private:
+        float padding;
     };
 }

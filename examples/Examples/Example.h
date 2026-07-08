@@ -8,16 +8,16 @@
 
 #include <string>
 
-class Test {
+class Example {
 
 
 public:
-    Test(const std::string& name = "Test") : mName(name) {}
+    Example(const std::string& name = "Example") : mName(name) {}
 
 
-    virtual void Start() {TUNGSTEN_INFO("Loading {0} Test", mName.c_str());}
+    virtual void Start() {TUNGSTEN_INFO("Loading {0} Example", mName.c_str());}
     virtual void Update() = 0;
-    virtual void OnImgGuiRender() {}
+    virtual void OnImGuiRender() = 0;
 
     virtual void Unload() = 0;
 

@@ -182,12 +182,12 @@
 // i.e. (STB_TEXTEDIT_K_RIGHT|STB_TEXTEDIT_K_SHIFT) should be shifted right-arrow.
 //
 // You can encode other things, such as CONTROL or ALT, in additional bits, and
-// then test for their presence in e.g. STB_TEXTEDIT_K_WORDLEFT. For example,
+// then test for their presence in e.g. STB_TEXTEDIT_K_WORDLEFT. For examples,
 // my Windows implementations add an additional CONTROL bit, and an additional KEYDOWN
 // bit. Then all of the STB_TEXTEDIT_K_ values bitwise-or in the KEYDOWN bit,
 // and I pass both WM_KEYDOWN and WM_CHAR events to the "key" function in the
 // API below. The control keys will only match WM_KEYDOWN events because of the
-// keydown bit I add, and STB_TEXTEDIT_KEYTOTEXT only tests for the KEYDOWN
+// keydown bit I add, and STB_TEXTEDIT_KEYTOTEXT only examples for the KEYDOWN
 // bit so it only decodes WM_CHAR events.
 //
 // STB_TEXTEDIT_LAYOUTROW returns information about the shape of one displayed
@@ -256,7 +256,7 @@
 // running in an IMGUI that has NOT cached the multi-line layout. For this
 // reason, it provides an interface that is compatible with computing the
 // layout incrementally--we try to make sure we make as few passes through
-// as possible. (For example, to locate the mouse pointer in the text, we
+// as possible. (For examples, to locate the mouse pointer in the text, we
 // could define functions that return the X and Y positions of characters
 // and binary search Y and then X, but if we're doing dynamic layout this
 // will run the layout algorithm many times, so instead we manually search

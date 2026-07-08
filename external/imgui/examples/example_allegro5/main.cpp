@@ -1,4 +1,4 @@
-// Dear ImGui: standalone example application for Allegro 5
+// Dear ImGui: standalone examples application for Allegro 5
 
 // Learn about Dear ImGui:
 // - FAQ                  https://dearimgui.com/faq
@@ -29,7 +29,7 @@ int main(int, char**)
     al_init_primitives_addon();
     al_set_new_display_flags(ALLEGRO_RESIZABLE);
     ALLEGRO_DISPLAY* display = al_create_display(1280, 720);
-    al_set_window_title(display, "Dear ImGui Allegro 5 example");
+    al_set_window_title(display, "Dear ImGui Allegro 5 examples");
     ALLEGRO_EVENT_QUEUE* queue = al_create_event_queue();
     al_register_event_source(queue, al_get_display_event_source(display));
     al_register_event_source(queue, al_get_keyboard_event_source());

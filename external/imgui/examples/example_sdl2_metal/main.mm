@@ -1,4 +1,4 @@
-// Dear ImGui: standalone example application for SDL2 + Metal
+// Dear ImGui: standalone examples application for SDL2 + Metal
 // (SDL is a cross-platform general purpose library for handling windows, inputs, OpenGL/Vulkan/Metal graphics context creation, etc.)
 
 // Learn about Dear ImGui:
@@ -70,7 +70,7 @@ int main(int, char**)
     // Enable native IME.
     SDL_SetHint(SDL_HINT_IME_SHOW_UI, "1");
 
-    SDL_Window* window = SDL_CreateWindow("Dear ImGui SDL+Metal example", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
+    SDL_Window* window = SDL_CreateWindow("Dear ImGui SDL+Metal examples", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
     if (window == nullptr)
     {
         printf("Error creating window: %s\n", SDL_GetError());

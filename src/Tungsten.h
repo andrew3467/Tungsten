@@ -18,6 +18,7 @@ inline void CheckOpenGLError(const char* stmt, const char* fname, int line)
     }
 }
 
+
 #define GL_ERROR_CHECK(func) do { \
             func; \
             CheckOpenGLError(#func, __FILE__, __LINE__); \

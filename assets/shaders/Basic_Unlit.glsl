@@ -13,13 +13,16 @@ out VS_OUT{
     vec2 TexCoord;
 } vs_out;
 
-uniform mat4 uViewProj;
+layout(std140, binding = 0) uniform CameraData {
+    vec3 ViewPos;
+    mat4 ViewProj;
+};
 uniform mat4 uModel;
 
 void main() {
     vs_out.TexCoord = aTexCoord;
 
-    gl_Position = uViewProj * uModel * vec4(aPosition, 1.0);
+    gl_Position = ViewProj * uModel * vec4(aPosition, 1.0);
     vs_out.FragPos = vec3(uModel * vec4(aPosition, 1));
 }
 
