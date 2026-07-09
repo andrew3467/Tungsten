@@ -54,6 +54,12 @@ public:
     void OnImGuiRender() override {
         ImGui::ColorPicker3("Cube Color", &mMaterial->Albedo.x);
         ImGui::ColorPicker3("Light Color", &mLightMaterial->Albedo.x);
+
+        ImGui::SliderFloat("Shininess", &mMaterial->Shininess, 0.0f, 256.0f);
+        ImGui::SliderFloat("Metallic", &mMaterial->Metallic, 0.0f, 1.0f);
+        ImGui::SliderFloat("Roughness", &mMaterial->Roughness, 0.0f, 1.0f);
+
+        ImGui::Separator();
         ImGui::SliderFloat("Orbit Radius", &mOrbitRadius, 1.0f, 10.0f);
         ImGui::SliderFloat("Orbit Speed", &mOrbitSpeed, 1.0f, 10.0f);
         ImGui::SliderFloat3("Light Position", &mLightTransform.Position.x, -10.0f, 10.0f);

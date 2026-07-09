@@ -18,6 +18,10 @@ namespace Tungsten {
         std::shared_ptr<Shader> Shader;
         std::shared_ptr<Texture2D> Texture;
 
+        float Shininess = 128.0f;
+        float Metallic = 0.5f;
+        float Roughness = 0.5f;
+
         glm::vec4 Albedo {1};
     };
 }

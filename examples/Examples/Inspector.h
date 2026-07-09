@@ -1,17 +1,17 @@
 //
-// Created by Andrew Graser on 7/2/2026.
+// Created by Andrew Graser on 7/9/2026.
 //
 
 
 #pragma once
 
-
 #include "Example.h"
 
 
-class MultipleLitExample : public Example {
+class InspectorExample : public Example {
 public:
-    MultipleLitExample() : Example("Multiple Lit") {}
+    InspectorExample() : Example("Inspector") {}
+
 
     void Start() override {
         Example::Start();
@@ -28,8 +28,4 @@ public:
     void OnImGuiRender() override {
 
     }
-
-
-private:
-
 };

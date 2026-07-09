@@ -18,6 +18,12 @@ namespace Tungsten {
         Shader->Bind();
 
         Shader->SetFloat3("uColor", Albedo);
+
+        Shader->SetFloat("uShininess", Shininess);
+        Shader->SetFloat("uMetallic", Metallic);
+        Shader->SetFloat("uRoughness", Roughness);
+
+
         Texture->Bind(0);
     }
 } // Tungsten

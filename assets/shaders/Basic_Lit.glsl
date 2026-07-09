@@ -61,7 +61,6 @@ const int MAX_POINT_LIGHTS = 32;
 layout (binding = 0) uniform sampler2D uAlbedoMap;       //Slot 0
 
 
-uniform vec3 uColor;
 
 layout(std140, binding = 0) uniform CameraData {
     vec3 ViewPos;
@@ -73,6 +72,13 @@ layout(std140, binding = 1) uniform LightingData {
     PointLight uPointLights[MAX_POINT_LIGHTS];
     int uNumPointLights;
 };
+
+
+uniform vec3 uColor;
+
+uniform float uShininess;
+uniform float uMetallic;
+uniform float uRoughness;
 
 
 
@@ -88,15 +94,15 @@ vec3 calcPointLight(PointLight light, vec3 normal, vec3 viewDir) {
 
     //Diffuse
     float diff = max(dot(N, L), 0.0);
-    vec3 diffuse = 0.1 * lightColor * diff;
+    vec3 diffuse = (1 - uMetallic) * lightColor * diff;
 
     //Specular
-    float shininess = 1;
+    float shininess = uShininess;
     float spec = 0.0f;
     if(diff > 0.0) {
         spec = pow(max(dot(N, H), 0.0), shininess);
     }
-    vec3 specular = 0.1 * lightColor * spec;
+    vec3 specular = (pow(2.0, 11.0 * (1.0 - uRoughness))) * lightColor * spec;
 
     //Attenuation
     float distance = length(light.Position.xyz - fs_in.FragPos);
