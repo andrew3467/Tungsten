@@ -27,8 +27,8 @@ namespace Tungsten
 
 
         Renderer::Init();
-        Primitive::Init();
         Texture2D::Init();
+        Primitive::Init();
 
         mImGuiLayer.Init();
 

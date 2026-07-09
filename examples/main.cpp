@@ -28,6 +28,8 @@ std::unique_ptr<CameraController> CamController;
 
 void Start() {
     CamController = std::make_unique<CameraController>(glm::vec3(0,0,-10));
+
+    Tests[0]->Start();
 }
 
 void Update() {
@@ -55,9 +57,6 @@ void DrawTestSelection() {
 }
 
 void OnImGuiRender() {
-    Renderer::OnImGUIDrawRenderer();
-
-
     ImGui::Begin("Example Options");
 
     DrawTestSelection();

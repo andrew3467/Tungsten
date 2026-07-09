@@ -5,8 +5,19 @@
 
 #pragma once
 
-namespace Tungsten {
-    class Material {
+#include "../Renderer/Shader.h"
+#include "../Renderer/Texture.h"
 
+namespace Tungsten {
+    struct Material {
+        Material();
+        ~Material() = default;
+
+        void Bind();
+
+        std::shared_ptr<Shader> Shader;
+        std::shared_ptr<Texture2D> Texture;
+
+        glm::vec4 Albedo {1};
     };
 }

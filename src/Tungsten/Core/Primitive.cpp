@@ -6,6 +6,9 @@
 
 
 namespace Tungsten {
+    std::shared_ptr<Mesh> Primitive::mQuadMesh = nullptr;
+    std::shared_ptr<Mesh> Primitive::mCubeMesh = nullptr;
+
     void Primitive::Init() {
         CreateQuad();
         CreateCube();

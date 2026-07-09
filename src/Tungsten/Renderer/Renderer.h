@@ -5,8 +5,8 @@
 
 #pragma once
 #include <glm/glm.hpp>
-#include <Tungsten/Core/Material.h>
 
+#include "../Core/Material.h"
 #include "../Core/Light.h"
 #include "../Core/Mesh.h"
 #include "VertexArray.h"
@@ -33,10 +33,6 @@ namespace Tungsten
 
         void SetLightData(const std::vector<PointLight>& lights, const DirectionalLight& dirLight);
 
-        void Draw(const Mesh& mesh, const Material& material);
-
-        void Draw(const std::shared_ptr<VertexArray>& VA, const glm::vec3& position);
-
-        void Draw(const std::shared_ptr<Mesh>& mesh, const glm::vec3& position);
+        void Draw(Mesh& mesh, const glm::mat4& model, Material& material);
     }
 }

@@ -17,8 +17,8 @@ namespace Tungsten {
 
 
 
-        static Mesh Quad() {return *mQuadMesh;}
-        static Mesh Cube() {return *mCubeMesh;}
+        static std::shared_ptr<Mesh> Quad() {return mQuadMesh;}
+        static std::shared_ptr<Mesh> Cube() {return mCubeMesh;}
 
 
     private:
