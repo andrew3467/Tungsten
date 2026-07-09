@@ -106,7 +106,7 @@ vec3 calcPointLight(PointLight light, vec3 normal, vec3 viewDir) {
     light.Quadratic * (distance * distance)
     );
 
-    return  attenuation * (diffuse + specular);
+    return  attenuation * (ambient + diffuse + specular);
 }
 
 vec3 calcDirLight(DirLight light, vec3 normal, vec3 viewDir) {
@@ -133,7 +133,7 @@ vec3 calcDirLight(DirLight light, vec3 normal, vec3 viewDir) {
 
 void main() {
     vec3 normal = normalize(fs_in.Normal);
-    vec3 viewDir = normalize(ViewPos - fs_in.FragPos);
+    vec3 viewDir = ViewPos - fs_in.FragPos;
 
 
     vec4 texColor = texture(uAlbedoMap, fs_in.TexCoord);
@@ -144,7 +144,7 @@ void main() {
     vec3 light = calcDirLight(uDirLight, normal, viewDir);
 
     for(int i = 0; i < uNumPointLights; i++){
-        light += calcPointLight(uPointLights[i], normal, fs_in.FragPos);
+        light += calcPointLight(uPointLights[i], normal, viewDir);
     }
 
 
