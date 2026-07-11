@@ -7,13 +7,6 @@
 #include "Material.h"
 
 namespace Tungsten {
-    Material::Material() {
-        Shader = Shader::Get("Basic_Lit");
-        Texture = Texture2D::Get("Default");
-
-
-    }
-
     void Material::Bind() {
         Shader->Bind();
 

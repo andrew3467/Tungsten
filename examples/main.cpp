@@ -12,16 +12,18 @@
 #include "CameraController.h"
 
 #include "Examples/LitCube.h"
+#include "Examples/PBR.h"
 #include "Examples/Inspector.h"
 
 
 using namespace Tungsten;
 
 
-int TestSelection = 0;
+int TestSelection = 1;
 int PrevTestSelection = 0;
-std::array<std::unique_ptr<Example>, 2> Tests {
+std::array<std::unique_ptr<Example>, 3> Tests {
         std::make_unique<LitCubeExample>(),
+        std::make_unique<PBRExample>(),
         std::make_unique<InspectorExample>(),
 };
 

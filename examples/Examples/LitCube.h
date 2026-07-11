@@ -20,8 +20,8 @@ public:
         Example::Start();
 
         mCubeMesh = Tungsten::Primitive::Cube();
-        mMaterial = std::make_shared<Tungsten::Material>();
-        mLightMaterial = std::make_shared<Tungsten::Material>();
+        mMaterial = std::make_shared<Tungsten::Material>(Tungsten::Shader::Get("Basic_Lit"), Tungsten::Texture2D::Get("Default"));
+        mLightMaterial = std::make_shared<Tungsten::Material>(Tungsten::Shader::Get("Basic_Unlit"), Tungsten::Texture2D::Get("Default"));
 
         mLightMaterial->Shader = Tungsten::Shader::Get("Basic_Unlit");
 
@@ -75,6 +75,7 @@ private:
     Tungsten::Transform mLightTransform;
 
     Tungsten::PointLight mLight;
+    Tungsten::PointLight mLight2;
     Tungsten::DirectionalLight mDirLight;
 
     float mOrbitRadius = 2.0f;

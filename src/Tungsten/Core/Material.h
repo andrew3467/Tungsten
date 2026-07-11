@@ -10,9 +10,6 @@
 
 namespace Tungsten {
     struct Material {
-        Material();
-        ~Material() = default;
-
         void Bind();
 
         std::shared_ptr<Shader> Shader;
