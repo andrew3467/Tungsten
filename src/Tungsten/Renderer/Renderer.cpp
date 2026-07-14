@@ -10,18 +10,12 @@
 
 #include <imgui.h>
 
-#include <glm/ext/matrix_clip_space.hpp>
-#include <glm/ext/matrix_transform.hpp>
-
 #include <Core/Light.h>
-#include <glm/gtc/type_ptr.hpp>
 #include <Core/Material.h>
 
 #include "Shader.h"
-#include "VertexArray.h"
 #include "Buffer.h"
 #include "UniformBuffer.h"
-#include "Texture.h"
 #include "RenderState.h"
 
 namespace Tungsten::Renderer
@@ -49,18 +43,13 @@ namespace Tungsten::Renderer
         bool wireframe = false;
     } sImGuiData;
 
+    std::vector<RenderCommand> sRenderCommands;
+
     void InitData()
     {
         sData.CameraUBO = std::make_shared<UniformBuffer>(sizeof(CameraData), 0);
         sData.LightingUBO = std::make_shared<UniformBuffer>(sizeof(LightingData), 1);
     }
-
-    void OnImGUIDrawRenderer() {
-        ImGui::Begin("Renderer Debug");
-
-        if (ImGui::Checkbox("Wireframe", &sImGuiData.wireframe)) RenderState::ToggleWireframe(sImGuiData.wireframe);
-    }
-
 
     void Init()
     {
@@ -116,6 +105,14 @@ namespace Tungsten::Renderer
         sData.CameraUBO->SetData(&data, sizeof(CameraData));
     }
 
+    void EndScene() {
+        for(auto& cmd : sRenderCommands) {
+            Draw(cmd.Mesh, cmd.Model, cmd.Material);
+        }
+
+        sRenderCommands.clear();
+    }
+
     void SetLightData(const std::vector<PointLight>& lights, const DirectionalLight& dirLight) {
         LightingData data;
         data.uDirLight = dirLight;
@@ -136,5 +133,9 @@ namespace Tungsten::Renderer
 
         mesh.GetVertexArray()->Bind();
         glDrawElements(GL_TRIANGLES, mesh.GetVertexArray()->GetIndexBuffer().GetCount(), GL_UNSIGNED_INT, nullptr);
+    }
+
+    void Submit(Mesh& mesh, const glm::mat4& model, Material& material) {
+        sRenderCommands.emplace_back(mesh, material, model);
     }
 } // Tungsten::Renderer

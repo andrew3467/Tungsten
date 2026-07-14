@@ -38,7 +38,7 @@ CheckOpenGLError(#stmt, __FILE__, __LINE__); \
 
 
 
-    uint32_t Texture::LoadTextureData(const std::string& path) {
+    uint32_t Texture::LoadTextureData(const std::filesystem::path& path) {
         stbi_set_flip_vertically_on_load(true);
         stbi_uc* data = stbi_load(path.c_str(), &mWidth, &mHeight, &mChannels, 0);
 
@@ -166,7 +166,7 @@ CheckOpenGLError(#stmt, __FILE__, __LINE__); \
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     }
 
-    Texture2D::Texture2D(const std::string &path) {
+    Texture2D::Texture2D(const std::filesystem::path &path) {
         mFileLoc = path;
         mRendererID = LoadTextureData(path);
     }

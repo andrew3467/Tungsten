@@ -43,8 +43,8 @@ public:
         mLight.Color = mLightMaterial->Albedo;
         Tungsten::Renderer::SetLightData({mLight}, mDirLight);
 
-        Tungsten::Renderer::Draw(*mCubeMesh, mCubeTransform.ModelMatrix(), *mMaterial);
-        Tungsten::Renderer::Draw(*mCubeMesh, mLightTransform.ModelMatrix(), *mLightMaterial);
+        Tungsten::Renderer::Submit(*mCubeMesh, mCubeTransform.ModelMatrix(), *mMaterial);
+        Tungsten::Renderer::Submit(*mCubeMesh, mLightTransform.ModelMatrix(), *mLightMaterial);
     }
 
     void Unload() override {

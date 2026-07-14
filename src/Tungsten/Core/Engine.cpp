@@ -55,6 +55,8 @@ namespace Tungsten
 
             updateFunc();
 
+            Renderer::EndScene();
+
             if(imGuiFunc) {
                 mImGuiLayer.Begin();
 

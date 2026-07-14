@@ -26,7 +26,7 @@ namespace Tungsten
         }
     }
 
-    std::shared_ptr<Shader> Shader::Get(const std::string &name) {
+    std::shared_ptr<Shader> Shader::Get(const std::filesystem::path& name) {
         return sShaders[name];
     }
 
@@ -77,7 +77,7 @@ namespace Tungsten
         return id;
     }
 
-    std::string LoadSource(const std::string &path) {
+    std::string LoadSource(const std::filesystem::path &path) {
         std::ifstream file(path, std::ios::in | std::ios::binary);
         std::string result;
 
@@ -123,7 +123,7 @@ namespace Tungsten
         return result;
     }
 
-    std::vector<uint32_t> CreateShaders(const std::string &srcPath) {
+    std::vector<uint32_t> CreateShaders(const std::filesystem::path &srcPath) {
         std::string src = LoadSource(srcPath);
         auto shaderSources = PreProcess(src);
 
@@ -162,7 +162,7 @@ namespace Tungsten
         }
     }
 
-    int CreateShaderProgram(const std::string &srcpath) {
+    int CreateShaderProgram(const std::filesystem::path &srcpath) {
         auto shaders = CreateShaders(srcpath);
 
         TUNGSTEN_ASSERT(!shaders.empty(), "ERROR: Shader program provided no compiled shaders!\nCheck file path and error log!");
@@ -196,10 +196,10 @@ namespace Tungsten
     //endregion
 
 
-    Shader::Shader(const std::string &srcPath) : mFileLoc(srcPath) {
+    Shader::Shader(const std::filesystem::path &srcPath) : mFileLoc(srcPath.string()) {
         mRendererID = CreateShaderProgram(srcPath);
 
-        auto baseFileName = srcPath.substr(srcPath.find_last_of("\\/") + 1);
+        auto baseFileName = mFileLoc.substr(mFileLoc.find_last_of("\\/") + 1);
         int const p = baseFileName.find_last_of('.');
         mName = baseFileName.substr(0, p);
     }
