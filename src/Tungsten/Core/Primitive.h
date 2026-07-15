@@ -12,13 +12,16 @@ namespace Tungsten {
     public:
         static void Init();
 
+    private:
         static void CreateQuad();
         static void CreateCube();
 
 
-
+    public:
         static std::shared_ptr<Mesh> Quad() {return mQuadMesh;}
         static std::shared_ptr<Mesh> Cube() {return mCubeMesh;}
+
+        static std::shared_ptr<Mesh> Sphere(int stacks, int sectors);
 
 
     private:

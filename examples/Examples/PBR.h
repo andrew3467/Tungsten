@@ -21,6 +21,10 @@ public:
     void Start() override {
         Example::Start();
 
+        Tungsten::ScopedTimer("Start Func");
+
+        mSphere = Tungsten::Primitive::Sphere(36, 18);
+
         mLightMaterial = std::make_shared<Tungsten::Material>(Tungsten::Shader::Get("Basic_Unlit"), Tungsten::Texture2D::Get("Default"));
 
         mLightTransform.Scale = glm::vec3(0.25f);
@@ -52,6 +56,8 @@ public:
     }
 
     void Update() override {
+        Tungsten::ScopedTimer("Update Func");
+
         mLightTransform.Position.x = (glm::cos(mAngle) * mOrbitRadius) + 5.f;
         mLightTransform.Position.z = (glm::sin(mAngle) * mOrbitRadius);
         mLight.Position = glm::vec4(mLightTransform.Position, 0.0);
@@ -64,9 +70,7 @@ public:
         for(int x = 0; x < mCubesPerLine; x++) {
             for (int y = 0; y < mCubesPerLine; y++) {
                 auto& cubeToDraw = mCubes[x * mCubesPerLine + y];
-                Tungsten::Renderer::Submit(*Tungsten::Primitive::Cube(), cubeToDraw.Transform.ModelMatrix(), cubeToDraw.Material);
-
-                cubeToDraw.Transform.Rotate({0,1,0}, 1.0f * Tungsten::Time::GetTime());
+                Tungsten::Renderer::Submit(*mSphere, cubeToDraw.Transform.ModelMatrix(), cubeToDraw.Material);
             }
         }
     }
@@ -84,6 +88,7 @@ public:
 
 private:
     std::shared_ptr<Tungsten::Material> mLightMaterial;
+    std::shared_ptr<Tungsten::Mesh> mSphere;
     Tungsten::Transform mLightTransform;
     Tungsten::PointLight mLight;
 

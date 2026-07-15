@@ -40,11 +40,11 @@ CheckOpenGLError(#stmt, __FILE__, __LINE__); \
 
     uint32_t Texture::LoadTextureData(const std::filesystem::path& path) {
         stbi_set_flip_vertically_on_load(true);
-        stbi_uc* data = stbi_load(path.c_str(), &mWidth, &mHeight, &mChannels, 0);
+        stbi_uc* data = stbi_load(path.string().c_str(), &mWidth, &mHeight, &mChannels, 0);
 
 
         if(!data) {
-            TUNGSTEN_ERROR("Failed to load texture at {0}", path);
+            TUNGSTEN_ERROR("Failed to load texture at {0}", path.string());
         }
 
 
@@ -99,7 +99,7 @@ CheckOpenGLError(#stmt, __FILE__, __LINE__); \
 
         stbi_image_free(data);
 
-        auto baseFileName = path.substr(path.find_last_of("\\/") + 1);
+        auto baseFileName = path.string().substr(path.string().find_last_of("\\/") + 1);
         int const p = baseFileName.find_last_of('.');
         mName = baseFileName.substr(0, p);
 
@@ -167,7 +167,7 @@ CheckOpenGLError(#stmt, __FILE__, __LINE__); \
     }
 
     Texture2D::Texture2D(const std::filesystem::path &path) {
-        mFileLoc = path;
+        mFileLoc = path.string();
         mRendererID = LoadTextureData(path);
     }
 

@@ -2,6 +2,9 @@
 // Created by Andrew Graser on 7/7/2026.
 //
 
+#include <glm/ext/scalar_constants.hpp>
+#include <cmath>
+#include <glm/geometric.hpp>
 #include "Primitive.h"
 
 
@@ -87,5 +90,74 @@ namespace Tungsten {
 
         mCubeMesh->SetVertices(vertices);
         mCubeMesh->SetIndices(indices);
+    }
+
+    //https://www.songho.ca/opengl/gl_sphere.html
+    std::shared_ptr<Mesh> Primitive::Sphere(int stacks, int sectors) {
+        std::vector<Vertex> vertices;
+        std::vector<uint32_t > indices;
+
+        float sectorStep = 2 * glm::pi<float>() / sectors;
+        float stackStep =  glm::pi<float>() / stacks;
+        float sectorAngle, stackAngle;
+
+        //Prefer unit sphere, scaling up done on shader level
+        const float radius = 1.0f;
+
+        float x, y, z, xy;
+
+        for (int i = 0; i <= stacks; ++i) {
+            stackAngle = glm::pi<float>() / 2.0f - i * stackStep;
+            xy = radius * cosf(stackAngle);
+            z = radius * sinf(stackAngle);
+
+            for (int j = 0; j <= sectors; ++j) {
+                sectorAngle = j * sectorStep;
+
+                x = xy * cosf(sectorAngle);
+                y = xy * sinf(sectorAngle);
+                glm::vec3 position(x,y,z);
+                glm::vec3 normal = glm::normalize(glm::vec3(x,y,z));
+
+                glm::vec2 texCoord((float)j / sectors, (float)i / stacks);
+
+                vertices.emplace_back(position, normal, texCoord);
+            }
+        }
+
+        //Indices
+        int k1, k2;
+        for(int i = 0; i < stacks; ++i)
+        {
+            k1 = i * (sectors + 1);     // beginning of current stack
+            k2 = k1 + sectors + 1;      // beginning of next stack
+
+            for(int j = 0; j < sectors; ++j, ++k1, ++k2)
+            {
+                if(i != 0)
+                {
+                    indices.push_back(k1);
+                    indices.push_back(k2);
+                    indices.push_back(k1 + 1);
+                }
+
+                if(i != (stacks-1))
+                {
+                    indices.push_back(k1 + 1);
+                    indices.push_back(k2);
+                    indices.push_back(k2 + 1);
+                }
+
+
+            }
+        }
+
+
+        auto mesh = Mesh::Create();
+
+        mesh->SetVertices(vertices);
+        mesh->SetIndices(indices);
+
+        return mesh;
     }
 }

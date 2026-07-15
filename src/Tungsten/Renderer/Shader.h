@@ -13,14 +13,14 @@ namespace Tungsten
         static std::shared_ptr<Shader> Create(const std::filesystem::path& srcPath) {return std::make_shared<Shader>(srcPath);}
         static void Init();
 
-        static std::shared_ptr<Shader> Get(const std::filesystem::path& name);
+        static std::shared_ptr<Shader> Get(const std::string& name);
         static std::unordered_map<std::string, std::shared_ptr<Shader>> GetShaders();
 
         [[nodiscard]] const std::string& GetName() const {return mName;}
         static const std::vector<std::string> GetNames();
 
         Shader(const std::filesystem::path &srcPath);
-        ~Shader();
+        ~Shader() = default;
 
 
         void Bind() const;

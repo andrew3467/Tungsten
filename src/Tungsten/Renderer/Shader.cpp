@@ -12,6 +12,7 @@
 namespace fs = std::filesystem;
 
 namespace Tungsten
+
 {
     std::unordered_map<std::string, std::shared_ptr<Shader>> sShaders;
 
@@ -26,7 +27,7 @@ namespace Tungsten
         }
     }
 
-    std::shared_ptr<Shader> Shader::Get(const std::filesystem::path& name) {
+    std::shared_ptr<Shader> Shader::Get(const std::string& name) {
         return sShaders[name];
     }
 
@@ -39,7 +40,7 @@ namespace Tungsten
         if(type == "vertex") return GL_VERTEX_SHADER;
         if(type == "fragment") return GL_FRAGMENT_SHADER;
 
-        TUNGSTEN_ASSERT(false, "ERROR: Unknown shader type: {0}", type);
+        TUNGSTEN_ASSERT(false, "ERROR: Unknown shader type: {0}", type)
         return 0;
     }
 
@@ -47,7 +48,7 @@ namespace Tungsten
         if(type == GL_VERTEX_SHADER) return "vertex";
         if(type == GL_FRAGMENT_SHADER) return "fragment";
 
-        TUNGSTEN_ASSERT(false, "ERROR: Unknown shader type: {0}", type);
+        TUNGSTEN_ASSERT(false, "ERROR: Unknown shader type: {0}", (int)type)
         return "";
     }
 
@@ -94,7 +95,7 @@ namespace Tungsten
             }
 
         } else {
-            TUNGSTEN_ERROR("ERROR: Failed to open shader file at: {0}", path);
+            TUNGSTEN_ERROR("ERROR: Failed to open shader file at: {0}", path.string());
         }
 
         return result;
@@ -108,14 +109,14 @@ namespace Tungsten
         size_t pos = source.find(typeToken, 0);
         while(pos != std::string::npos) {
             size_t eol = source.find_first_of("\r\n", pos);
-            TUNGSTEN_ASSERT(eol != std::string::npos, "Syntax Error!");
+            TUNGSTEN_ASSERT(eol != std::string::npos, "Syntax Error!")
 
             size_t begin = pos + typeTokenLength + 1;
             std::string type = source.substr(begin, eol - begin);
 
             size_t nextLinePos = source.find_first_not_of("\r\n", eol);
             pos = source.find(typeToken, nextLinePos);
-            TUNGSTEN_ASSERT(nextLinePos != std::string::npos, "Syntax Error!");
+            TUNGSTEN_ASSERT(nextLinePos != std::string::npos, "Syntax Error!")
 
             result[ShaderTypeFromString(type)] = (pos == std::string::npos) ? source.substr(nextLinePos) : source.substr(nextLinePos, pos - nextLinePos);
         }
@@ -124,12 +125,12 @@ namespace Tungsten
     }
 
     std::vector<uint32_t> CreateShaders(const std::filesystem::path &srcPath) {
-        std::string src = LoadSource(srcPath);
-        auto shaderSources = PreProcess(src);
+        std::string combinedSources = LoadSource(srcPath);
+        auto shaderSources = PreProcess(combinedSources);
 
         std::vector<uint32_t> shaders;
 
-        for(auto shader : shaderSources) {
+        for(const auto& shader : shaderSources) {
             GLenum type = shader.first;
             const char* src = shader.second.c_str();
 
@@ -165,7 +166,7 @@ namespace Tungsten
     int CreateShaderProgram(const std::filesystem::path &srcpath) {
         auto shaders = CreateShaders(srcpath);
 
-        TUNGSTEN_ASSERT(!shaders.empty(), "ERROR: Shader program provided no compiled shaders!\nCheck file path and error log!");
+        TUNGSTEN_ASSERT(!shaders.empty(), "ERROR: Shader program provided no compiled shaders!\nCheck file path and error log!")
 
         GLuint id = glCreateProgram();
 
@@ -191,7 +192,7 @@ namespace Tungsten
 
         CleanupShaders(shaders, id);
 
-        return id;
+        return (int)id;
     }
     //endregion
 
@@ -200,12 +201,8 @@ namespace Tungsten
         mRendererID = CreateShaderProgram(srcPath);
 
         auto baseFileName = mFileLoc.substr(mFileLoc.find_last_of("\\/") + 1);
-        int const p = baseFileName.find_last_of('.');
+        int const p = (int)baseFileName.find_last_of('.');
         mName = baseFileName.substr(0, p);
-    }
-
-    Shader::~Shader() {
-
     }
 
     void Shader::Bind() const {
