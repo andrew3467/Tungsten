@@ -1,3 +1,0 @@
-Diagnostics:
-  Suppress:
-    - clang-diagnostic-invalid-constexpr
