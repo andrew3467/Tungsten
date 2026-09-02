@@ -30,5 +30,10 @@ namespace Tungsten {
 #define TUNGSTEN_INFO(...) ::Tungsten::Logger::GetCoreLogger().info(__VA_ARGS__)
 #define TUNGSTEN_WARN(...) ::Tungsten::Logger::GetCoreLogger().warn(__VA_ARGS__)
 #define TUNGSTEN_ERROR(...) ::Tungsten::Logger::GetCoreLogger().error(__VA_ARGS__)
-#define TUNGSTEN_FATAL(...) ::Tungsten::Logger::GetCoreLogger().critital(__VA_ARGS__)
-#define TUNGSTEN_ASSERT(x, ...) { if(!(x)) { TUNGSTEN_ERROR(__VA_ARGS__); }}
+#define TUNGSTEN_FATAL(...) ::Tungsten::Logger::GetCoreLogger().critical(__VA_ARGS__)
+#define TUNGSTEN_ASSERT(x, ...)         \
+    do {                                \
+        if(!(x)) {                      \
+            TUNGSTEN_ERROR(__VA_ARGS__);\
+        }                               \
+    } while(false);

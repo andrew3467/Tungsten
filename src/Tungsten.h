@@ -31,6 +31,8 @@ inline void CheckOpenGLError(const char* stmt, const char* fname, int line)
 #include "glm/gtx/hash.hpp"
 
 
+#include "Tungsten/Core/Util/Random.h"
+
 #include "Tungsten/Core/Engine.h"
 #include "Tungsten/Core/Input.h"
 
@@ -38,9 +40,9 @@ inline void CheckOpenGLError(const char* stmt, const char* fname, int line)
 #include "Tungsten/Core/Mesh.h"
 #include "Tungsten/Core/Vertex.h"
 
-#include "Tungsten/Core/Logger.h"
+#include "Tungsten/Core/Util/Logger.h"
 #include "Tungsten/Core/Window.h"
-#include "Tungsten/Core/Time.h"
+#include "Tungsten/Core/Util/Time.h"
 #include "Tungsten/Core/Camera.h"
 
 #include "Tungsten/Core/Physics/2D/BoxCollider2D.h"

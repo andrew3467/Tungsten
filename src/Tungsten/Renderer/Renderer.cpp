@@ -10,8 +10,8 @@
 
 #include <imgui.h>
 
-#include <Core/Light.h>
-#include <Core/Material.h>
+#include "Tungsten/Core/Light.h"
+#include "Tungsten/Core/Material.h"
 
 #include "Shader.h"
 #include "Buffer.h"

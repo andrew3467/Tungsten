@@ -5,13 +5,14 @@
 #include "Engine.h"
 
 
-#include "Time.h"
-#include "../Renderer/Renderer.h"
-#include "Renderer/Texture.h"
+#include "Tungsten/Core/Util/Time.h"
+#include "Tungsten/Renderer/Renderer.h"
+#include "Tungsten/Renderer/Texture.h"
 #include "Primitive.h"
 
 namespace Tungsten
 {
+    AssetManager& Assets() {return Engine::Get().Assets();}
 
     std::shared_ptr<Camera> Engine::MainCamera = nullptr;
     Engine* Engine::sInstance = nullptr;

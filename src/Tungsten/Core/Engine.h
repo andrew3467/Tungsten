@@ -5,6 +5,7 @@
 
 #pragma once
 
+#include <Tungsten/Core/Asset/AssetManager.h>
 #include "Window.h"
 #include "Camera.h"
 #include "ImGuiLayer.h"
@@ -24,6 +25,7 @@ namespace Tungsten
         void Run(const std::function<void()>& updateFunc, const std::function<void()>& startFunc, const std::function<void()>& imGuiFunc = nullptr);
 
         Window& GetWindow() {return *mWindow;}
+        AssetManager& Assets() {return mAssetManager;}
 
 
         void OnWindowClose(GLFWwindow *window);
@@ -37,9 +39,14 @@ namespace Tungsten
         bool mRunning = false;
 
         std::shared_ptr<Window> mWindow;
+
+        AssetManager mAssetManager;
+
         ImGuiLayer mImGuiLayer;
 
     public:
         static std::shared_ptr<Camera> MainCamera;
     };
+
+    AssetManager& Assets();
 }

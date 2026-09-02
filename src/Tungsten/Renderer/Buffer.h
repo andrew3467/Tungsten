@@ -27,8 +27,8 @@ enum class ShaderDataType
             case ShaderDataType::Int4:     return 4 * 4;
             case ShaderDataType::Bool:     return 1;
         }
-
-        TUNGSTEN_ASSERT(false, "Unknown ShaderDataType!");
+;
+        TUNGSTEN_ASSERT(false, "Unknown ShaderDataType!")
         return 0;
     }
 

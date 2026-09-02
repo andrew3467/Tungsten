@@ -23,7 +23,7 @@
 //C libs
 #include <cstdio> //for uint32_t etc
 
-#include "Core/Logger.h"
+#include "Tungsten/Core/Util/Logger.h"
 
 
 #define ASSET_DIR std::string(ASSETS_DIR)

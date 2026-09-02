@@ -2,8 +2,8 @@
 // Created by Andrew Graser on 7/7/2026.
 //
 
-#include <Renderer/Shader.h>
-#include <Renderer/Texture.h>
+#include "Tungsten/Renderer/Shader.h"
+#include "Tungsten/Renderer/Texture.h"
 #include "Material.h"
 
 namespace Tungsten {

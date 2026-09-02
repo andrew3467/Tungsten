@@ -5,9 +5,11 @@
 
 #pragma once
 
+#include "../Core/Asset/Asset.h"
+
 namespace Tungsten
 {
-    class Texture {
+    class Texture : public Asset {
     public:
         Texture() {}
         virtual ~Texture() {}

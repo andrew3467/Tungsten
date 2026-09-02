@@ -45,10 +45,12 @@ public:
                         {
                                 Tungsten::Shader::Get("PBR"),
                                 Tungsten::Texture2D::Get("Default"),
+
+                                {1, 0, 0, 1},
+
                                 0.0f,
                                 (float)x / (float)mCubesPerLine,
-                                (float)y / 4.0f,
-                                {1, 0, 0, 1}
+                                (float)y / 4.0f
                         }
                 };
             }

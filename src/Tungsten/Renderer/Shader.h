@@ -4,11 +4,18 @@
 
 
 #pragma once
+
+
+
 #include <glm/glm.hpp>
+
+
+#include "../Core/Asset/Asset.h"
+
 
 namespace Tungsten
 {
-    class Shader {
+    class Shader : public Asset {
     public:
         static std::shared_ptr<Shader> Create(const std::filesystem::path& srcPath) {return std::make_shared<Shader>(srcPath);}
         static void Init();

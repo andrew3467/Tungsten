@@ -30,7 +30,7 @@ add_library(
 target_include_directories(
         Tungsten
         PRIVATE
-        src/Tungsten
+        ${PROJECT_SOURCE_DIR}/src
         external/stb
         PUBLIC
         external/imgui
@@ -56,7 +56,7 @@ target_precompile_headers(
 
 target_compile_definitions(
         Tungsten
-        PRIVATE
+        PUBLIC
 
         GLFW_INCLUDE_NONE
         ASSETS_DIR="${CMAKE_SOURCE_DIR}/assets"
