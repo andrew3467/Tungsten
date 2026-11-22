@@ -15,20 +15,18 @@
 #include "Examples/PBR.h"
 #include "Examples/Inspector.h"
 #include "Examples/Particles.h"
-#include "Examples/SolarSystem.h"
 
 
 using namespace Tungsten;
 
 
-int TestSelection = 3;
+int TestSelection = 2;
 int PrevTestSelection = 0;
-std::array<std::unique_ptr<Example>, 5> Tests {
+std::array<std::unique_ptr<Example>, 4> Tests {
         std::make_unique<LitCubeExample>(),
         std::make_unique<PBRExample>(),
         std::make_unique<InspectorExample>(),
-        std::make_unique<ParticleExample>(),
-        std::make_unique<SolarSystemExample>(),
+        std::make_unique<ParticleExample>()
 };
 
 

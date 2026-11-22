@@ -16,10 +16,12 @@
 #include "Shader.h"
 #include "Buffer.h"
 #include "UniformBuffer.h"
-#include "RenderState.h"
+#include "RenderQueue.h"
 
 namespace Tungsten::Renderer
 {
+    constexpr int MAX_LIGHTS = 32;
+
     struct CameraData {
         glm::vec4 ViewPos;
         glm::mat4 ViewProj;
@@ -27,7 +29,7 @@ namespace Tungsten::Renderer
 
     struct alignas(16) LightingData {
             DirectionalLight uDirLight;
-            PointLight uPointLights[32];
+            PointLight uPointLights[MAX_LIGHTS];
             int uNumPointLights;
     private:
             int padding[3];
@@ -43,7 +45,7 @@ namespace Tungsten::Renderer
         bool wireframe = false;
     } sImGuiData;
 
-    std::vector<RenderCommand> sRenderCommands;
+    static RenderQueue sRenderQueue;
 
     void InitData()
     {
@@ -106,36 +108,47 @@ namespace Tungsten::Renderer
     }
 
     void EndScene() {
-        for(auto& cmd : sRenderCommands) {
-            Draw(cmd.Mesh, cmd.Model, cmd.Material);
-        }
-
-        sRenderCommands.clear();
+        sRenderQueue.Sort();
     }
 
     void SetLightData(const std::vector<PointLight>& lights, const DirectionalLight& dirLight) {
-        LightingData data;
+        LightingData data{};
         data.uDirLight = dirLight;
-        data.uNumPointLights = lights.size();
+        data.uNumPointLights = std::min(static_cast<int>(lights.size()), MAX_LIGHTS);
 
-        for(int i = 0; i < lights.size(); i++) {
+        for(int i = 0; i < data.uNumPointLights; i++) {
             data.uPointLights[i] = lights[i];
         }
 
         sData.LightingUBO->SetData(&data, sizeof(LightingData));
     }
 
-    void Draw(Mesh& mesh, const glm::mat4& model, Material& material) {
-        material.Shader->Bind();
-        material.Bind();
+    void ExecuteRenderPipeline() {
+        const auto& renderBatches = sRenderQueue.GetBatches();
 
-        material.Shader->SetFloat4x4("uModel", model);
+        for (auto& batch : renderBatches)
+        {
+            batch.Material->Shader->Bind();
+            batch.Material->Bind();
 
-        mesh.GetVertexArray()->Bind();
-        glDrawElements(GL_TRIANGLES, mesh.GetVertexArray()->GetIndexBuffer().GetCount(), GL_UNSIGNED_INT, nullptr);
+            batch.Mesh->GetVertexArray()->Bind();
+
+            for (auto& model : batch.Transforms)
+            {
+                batch.Material->Shader->SetFloat4x4("uModel", model);
+                glDrawElements(
+                    GL_TRIANGLES,
+                    batch.Mesh->GetVertexArray()->GetIndexBuffer().GetCount(),
+                    GL_UNSIGNED_INT,
+                    nullptr
+                    );
+            }
+        }
+
+        sRenderQueue.Clear();
     }
 
-    void Submit(Mesh& mesh, const glm::mat4& model, Material& material) {
-        sRenderCommands.emplace_back(mesh, material, model);
+    void Submit(Mesh* mesh, Material* material, const glm::mat4& model) {
+        sRenderQueue.Submit(mesh, material, model);
     }
 } // Tungsten::Renderer

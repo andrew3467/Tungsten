@@ -34,7 +34,7 @@ public:
 
     void Update() override {
         for (int i = 0; i < mNumParticles; ++i) {
-            Tungsten::Renderer::Submit(*Tungsten::Primitive::Quad(), ParticleModel(mParticles[i]), mParticleMaterial);
+            Tungsten::Renderer::Submit(Tungsten::Primitive::Quad().get(), &mParticleMaterial, ParticleModel(mParticles[i]));
         }
 
         for (int i = 0; i < mNumParticles; ++i) {

@@ -16,14 +16,6 @@ namespace Tungsten
 {
     class Texture2D;
 
-
-    struct RenderCommand {
-        Mesh Mesh;
-        Material Material;
-        glm::mat4 Model;
-    };
-
-
     namespace Renderer
     {
         void Init();
@@ -40,8 +32,8 @@ namespace Tungsten
 
         void SetLightData(const std::vector<PointLight>& lights, const DirectionalLight& dirLight);
 
-        void Draw(Mesh& mesh, const glm::mat4& model, Material& material);
+        void ExecuteRenderPipeline();
 
-        void Submit(Mesh& mesh, const glm::mat4& model, Material& material);
+        void Submit(Mesh* mesh, Material* material, const glm::mat4& model);
     }
 }

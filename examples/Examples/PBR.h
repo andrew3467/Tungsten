@@ -68,11 +68,11 @@ public:
 
 
         Tungsten::Renderer::SetLightData({mLight}, {});
-        Tungsten::Renderer::Submit(*Tungsten::Primitive::Cube(), mLightTransform.ModelMatrix(), *mLightMaterial);
+        Tungsten::Renderer::Submit(Tungsten::Primitive::Cube().get(), mLightMaterial.get(), mLightTransform.ModelMatrix());
         for(int x = 0; x < mCubesPerLine; x++) {
             for (int y = 0; y < mCubesPerLine; y++) {
                 auto& cubeToDraw = mCubes[x * mCubesPerLine + y];
-                Tungsten::Renderer::Submit(*mSphere, cubeToDraw.Transform.ModelMatrix(), cubeToDraw.Material);
+                Tungsten::Renderer::Submit(mSphere.get(), &cubeToDraw.Material, cubeToDraw.Transform.ModelMatrix());
             }
         }
     }
