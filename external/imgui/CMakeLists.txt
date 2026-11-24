@@ -31,7 +31,6 @@ set(BACKENDS
         backends/imgui_impl_opengl3_loader.h
 )
 
-include_directories(./)
 
 
 add_library(ImGui
@@ -45,3 +44,5 @@ target_link_libraries(
         PRIVATE
         glfw
 )
+
+target_include_directories(ImGui PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

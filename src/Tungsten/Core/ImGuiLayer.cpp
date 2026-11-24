@@ -19,7 +19,9 @@ namespace Tungsten {
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
+        ImGuiWindowFlags window_flags =  ImGuiWindowFlags_NoDocking;
+        //window_flags |= ImGuiWindowFlags_MenuBar;
+
 
         //Setup dockspace
         ImGuiViewport* viewport = ImGui::GetMainViewport();

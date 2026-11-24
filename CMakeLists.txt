@@ -3,66 +3,7 @@ project(Tungsten)
 
 set(CMAKE_CXX_STANDARD 23)
 
-
-option(TUNGSTEN_DEV_RUN_TESTS "Build tests" ON)
-
-
-find_package(spdlog CONFIG REQUIRED)
-find_package(glad CONFIG REQUIRED)
-find_package(glfw3 CONFIG REQUIRED)
-find_package(glm CONFIG REQUIRED)
-
-
-
 add_subdirectory(external)
 
-
-
-file(GLOB_RECURSE SRC src/*.cpp)
-file(GLOB_RECURSE HEADERS src/*.h)
-
-add_library(
-        Tungsten
-        ${SRC}
-        ${HEADERS}
-)
-
-target_include_directories(
-        Tungsten
-        PRIVATE
-        ${PROJECT_SOURCE_DIR}/src
-        external/stb
-        PUBLIC
-        external/imgui
-)
-
-target_link_libraries(
-        Tungsten
-        PUBLIC
-        spdlog::spdlog
-        ImGui
-        PRIVATE
-        glad::glad
-        glfw
-        glm::glm
-        stb
-)
-
-target_precompile_headers(
-        Tungsten
-        PUBLIC
-        src/Tungsten/tungstenpch.h
-)
-
-target_compile_definitions(
-        Tungsten
-        PUBLIC
-
-        GLFW_INCLUDE_NONE
-        ASSETS_DIR="${CMAKE_SOURCE_DIR}/assets"
-)
-
-
-if(TUNGSTEN_DEV_RUN_TESTS)
-        add_subdirectory(examples)
-endif()
+add_subdirectory(src/Tungsten)
+add_subdirectory(src/Editor)
