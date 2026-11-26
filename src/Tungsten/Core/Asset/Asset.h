@@ -34,6 +34,9 @@ namespace Tungsten {
 
         const AssetHandle& Handle() const {return mUUID;}
 
+    protected:
+        std::string mName;
+
     private:
         AssetHandle mUUID;
     };

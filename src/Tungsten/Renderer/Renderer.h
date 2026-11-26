@@ -23,7 +23,8 @@ namespace Tungsten
         void OnImGUIDrawRenderer();
 
         void SetClearColor(float r, float g, float b);
-        void SetViewport(float x, float y, float width, float height);
+        void SetViewport(float x, float y, int width, int height);
+        glm::vec2 GetViewport();
 
         void Clear();
 
@@ -35,5 +36,7 @@ namespace Tungsten
         void ExecuteRenderPipeline();
 
         void Submit(Mesh* mesh, Material* material, const glm::mat4& model);
+
+        void ResizeFrameBuffer(int width, int height);
     }
 }

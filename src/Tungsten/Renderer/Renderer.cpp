@@ -17,6 +17,8 @@
 #include "Buffer.h"
 #include "UniformBuffer.h"
 #include "RenderQueue.h"
+#include "Framebuffer.h"
+#include "imstb_rectpack.h"
 
 namespace Tungsten::Renderer
 {
@@ -46,6 +48,7 @@ namespace Tungsten::Renderer
     } sImGuiData;
 
     static RenderQueue sRenderQueue;
+    static std::shared_ptr<Framebuffer> sFrameBuffer;
 
     void InitData()
     {
@@ -55,7 +58,7 @@ namespace Tungsten::Renderer
 
     void Init()
     {
-        int success = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+        int success = gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress));
         TUNGSTEN_ASSERT(success, "Failed to load OpenGL functions");
 
         glEnable(GL_DEPTH_TEST);
@@ -79,6 +82,15 @@ namespace Tungsten::Renderer
             );
         }
 
+
+        GLint viewport[4];
+        glGetIntegerv(GL_VIEWPORT, viewport);
+
+        sFrameBuffer = Framebuffer::Create({
+            .Width = viewport[2],
+            .Height = viewport[3],
+        });
+
         TUNGSTEN_INFO("Renderer Initialized");
     }
 
@@ -87,9 +99,17 @@ namespace Tungsten::Renderer
         glClearColor(r, g, b, 1.0f);
     }
 
-    void SetViewport(float x, float y, float width, float height)
+    void SetViewport(float x, float y, int width, int height)
     {
         glViewport(x, y, width, height);
+    }
+
+    glm::vec2 GetViewport()
+    {
+        int out[4];
+        glGetIntegerv(GL_VIEWPORT, out);
+
+        return {out[2], out[3]};
     }
 
     void Clear()
@@ -98,6 +118,11 @@ namespace Tungsten::Renderer
     }
 
     void StartScene(const glm::mat4 &viewProj, const glm::vec3& viewPos) {
+        sFrameBuffer->Bind();
+        //sFrameBuffer->Clear();
+
+        SetViewport(0,0, sFrameBuffer->Width(), sFrameBuffer->Height());
+
 
         CameraData data{
                 glm::vec4(viewPos, 0),
@@ -105,6 +130,8 @@ namespace Tungsten::Renderer
         };
 
         sData.CameraUBO->SetData(&data, sizeof(CameraData));
+
+        sFrameBuffer->Bind();
     }
 
     void EndScene() {
@@ -133,6 +160,8 @@ namespace Tungsten::Renderer
 
             batch.Mesh->GetVertexArray()->Bind();
 
+            Clear();
+
             for (auto& model : batch.Transforms)
             {
                 batch.Material->Shader->SetFloat4x4("uModel", model);
@@ -146,9 +175,15 @@ namespace Tungsten::Renderer
         }
 
         sRenderQueue.Clear();
+        sFrameBuffer->Unbind();
     }
 
     void Submit(Mesh* mesh, Material* material, const glm::mat4& model) {
         sRenderQueue.Submit(mesh, material, model);
+    }
+
+    void ResizeFrameBuffer(int width, int height)
+    {
+        sFrameBuffer->Resize(width, height);
     }
 } // Tungsten::Renderer

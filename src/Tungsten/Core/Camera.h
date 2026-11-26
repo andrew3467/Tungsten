@@ -41,10 +41,13 @@ namespace Tungsten
 
         void ProcessMouseMovement(float xoffset, float yoffset, float sensitivity, bool constrainPitch);
 
-    private:
         void RecalculateMatrices();
 
+        void SetViewportSize(int width, int height);
+
     private:
+        glm::vec2 mViewport;
+
         glm::mat4 mView;
         glm::mat4 mProjection;
         glm::mat4 mViewProjection;

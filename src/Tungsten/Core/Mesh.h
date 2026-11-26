@@ -8,9 +8,10 @@
 
 #include "../Renderer/VertexArray.h"
 #include "Vertex.h"
+#include "Asset/Asset.h"
 
 namespace Tungsten {
-    class Mesh {
+    class Mesh : public Asset {
     public:
         static std::shared_ptr<Mesh> Create();
 
@@ -22,6 +23,8 @@ namespace Tungsten {
         void SetVertices(const std::vector<Vertex>& vertices);
         void SetIndices(const std::vector<uint32_t>& indices);
         void SetNormals(const std::vector<glm::vec3>& normals);
+
+        std::string GetName() const {return mName;}
 
         const std::shared_ptr<VertexArray>& GetVertexArray();
 

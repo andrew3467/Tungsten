@@ -23,6 +23,7 @@ namespace Tungsten {
             std::shared_ptr<T> asset = T::Create(p);
 
             mAssetMap.emplace(asset->Handle(), asset);
+            mNameMap.emplace(asset->GetName(), asset->Handle());
             mPathMap.emplace(p, asset->Handle());
 
             return std::static_pointer_cast<T>(asset);
@@ -36,16 +37,28 @@ namespace Tungsten {
         }
 
         template<typename T>
-        std::shared_ptr<T> Get(const std::filesystem::path& path) {
-            auto p = std::filesystem::path(ASSET_DIR) / path;
-            if(mPathMap.contains(p)) return Get<T>(mPathMap[p]);
+        std::shared_ptr<T> Get(const std::string& name) {
+            if(mNameMap.contains(name)) return Get<T>(mNameMap[name]);
 
-            TUNGSTEN_ERROR("Tried To load asset from invalid path: {0}", p.string());
+            TUNGSTEN_ERROR("Tried To load asset: {}", name);
             return nullptr;
+        }
+
+        template<typename T, typename... Args>
+        requires std::derived_from<T, Asset>
+        std::shared_ptr<T> Create(Args&&... args)
+        {
+            std::shared_ptr<T> asset = T::Create(std::forward<Args>(args)...);
+
+            mAssetMap.emplace(asset->Handle(), asset);
+            mNameMap.emplace(asset->GetName(), asset->Handle());
+
+            return asset;
         }
 
     private:
         std::unordered_map<AssetHandle, std::shared_ptr<Asset>> mAssetMap;
+        std::unordered_map<std::string, AssetHandle> mNameMap;
         std::unordered_map<std::filesystem::path, AssetHandle> mPathMap;
     };
 }

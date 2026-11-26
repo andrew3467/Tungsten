@@ -47,18 +47,19 @@ namespace Tungsten
     {
         startFunc();
 
+
+        Renderer::SetClearColor(0.1f, 0.1f, 0.1f);
         while(mRunning)
         {
-            Renderer::SetClearColor(0.1f, 0.1f, 0.1f);
-            Renderer::Clear();
-
             Renderer::StartScene(MainCamera->GetViewProjection(), MainCamera->GetPosition());
-
             updateFunc();
 
             Renderer::EndScene();
 
             Renderer::ExecuteRenderPipeline();
+
+            //Restore Gl Viewport
+            Renderer::SetViewport(0.0f, 0.0f, mWindow->GetSize().x, mWindow->GetSize().y);
 
             if(imGuiFunc) {
                 mImGuiLayer.Begin();

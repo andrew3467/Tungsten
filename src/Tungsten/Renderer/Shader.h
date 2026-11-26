@@ -56,7 +56,6 @@ namespace Tungsten
     private:
         uint32_t mRendererID;
         std::string mFileLoc;
-        std::string mName;
 
         std::unordered_map<std::string, uint32_t> mUniforms;
     };

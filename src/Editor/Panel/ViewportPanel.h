@@ -5,6 +5,7 @@
 
 #pragma once
 #include "EditorPanel.h"
+#include "Tungsten/Renderer/Texture.h"
 
 namespace TungstenEditor
 {
@@ -15,5 +16,9 @@ namespace TungstenEditor
 
         void OnRender() const override;
         std::string GetName() const override;
+
+
+    private:
+        std::shared_ptr<Tungsten::Texture2D> mFramebufferOutput;
     };
 }

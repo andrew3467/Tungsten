@@ -157,12 +157,12 @@ CheckOpenGLError(#stmt, __FILE__, __LINE__); \
         glGenTextures(1, &mRendererID);
         glBindTexture(GL_TEXTURE_2D, mRendererID);
 
-        GL_CHECK(glTexStorage2D(GL_TEXTURE_2D, 1, mInternalFormat, mWidth, mHeight));
+        GL_CHECK(glTexImage2D(GL_TEXTURE_2D, 0, mInternalFormat, mWidth, mHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr));
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     }
 
@@ -173,6 +173,18 @@ CheckOpenGLError(#stmt, __FILE__, __LINE__); \
 
     Texture2D::~Texture2D() {
         glDeleteTextures(1, &mRendererID);
+    }
+
+    void Texture2D::Resize(int width, int height)
+    {
+        if (width == 0 || height == 0) return;
+        if (width == mWidth || height == mHeight) return;
+
+        mWidth = width;
+        mHeight = height;
+
+        glBindTexture(GL_TEXTURE_2D, mRendererID);
+        GL_CHECK(glTexImage2D(GL_TEXTURE_2D, 0, mInternalFormat, mWidth, mHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr));
     }
 
     void Texture2D::SetData(void *data, uint32_t size) const {

@@ -8,6 +8,7 @@
 #include <glm/ext/matrix_transform.hpp>
 
 #include "Engine.h"
+#include "Tungsten/Renderer/Renderer.h"
 
 
 namespace Tungsten
@@ -21,7 +22,7 @@ namespace Tungsten
     }
 
     void Camera::RecalculateMatrices() {
-        float aspect = Engine::Get().GetWindow().GetAspect();
+        float aspect = mViewport.x / mViewport.y;
 
 
         glm::vec3 front = {
@@ -38,6 +39,12 @@ namespace Tungsten
         mView = glm::lookAt(mPosition, mPosition + mFront, mUp);
         mProjection = glm::perspective(glm::radians(mFOV), aspect, mNear, mFar);
         mViewProjection = mProjection * mView;
+    }
+
+    void Camera::SetViewportSize(int width, int height)
+    {
+        mViewport.x = width;
+        mViewport.y = height;
     }
 
     void Camera::ProcessMouseMovement(float xoffset, float yoffset, float sensitivity, bool constrainPitch) {

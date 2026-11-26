@@ -38,8 +38,6 @@ namespace Tungsten
         int mWidth, mHeight, mChannels;
 
         uint32_t mInternalFormat, mDataFormat;
-
-        std::string mName;
     };
 
     class Texture2D : public Texture {
@@ -54,6 +52,11 @@ namespace Tungsten
         Texture2D(int width, int height, const std::string& name);
         Texture2D(const std::filesystem::path& path);
         ~Texture2D();
+
+        int Width() const {return mWidth;}
+        int Height() const {return mHeight;}
+
+        void Resize(int width, int height);
 
         void SetData(void* data, uint32_t size) const;
     };
