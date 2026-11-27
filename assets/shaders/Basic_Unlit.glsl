@@ -44,12 +44,12 @@ in VS_OUT{
 layout (binding = 0) uniform sampler2D uAlbedoMap;       //Slot 0
 
 
-uniform vec3 uColor;
+uniform vec4 uColor;
 
 void main() {
     vec4 texColor = texture(uAlbedoMap, fs_in.TexCoord);
 
     if(texColor.a != 1) discard;
 
-    FragColor = texColor * vec4(uColor, 1);
+    FragColor = texColor * uColor;
 }

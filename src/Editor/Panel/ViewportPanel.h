@@ -5,6 +5,7 @@
 
 #pragma once
 #include "EditorPanel.h"
+#include "Editor/CameraController.h"
 #include "Tungsten/Renderer/Texture.h"
 
 namespace TungstenEditor
@@ -14,11 +15,19 @@ namespace TungstenEditor
     public:
         ViewportPanel();
 
-        void OnRender() const override;
+        void OnRender() override;
+        void OnUpdate() override;
+
         std::string GetName() const override;
+
+
 
 
     private:
         std::shared_ptr<Tungsten::Texture2D> mFramebufferOutput;
+        std::unique_ptr<CameraController> mCamController;
+
+        bool mIsHovered = false;
+        bool mIsFocused = false;
     };
 }

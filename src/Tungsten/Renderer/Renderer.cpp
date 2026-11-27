@@ -153,14 +153,14 @@ namespace Tungsten::Renderer
     void ExecuteRenderPipeline() {
         const auto& renderBatches = sRenderQueue.GetBatches();
 
+        Clear();
+
         for (auto& batch : renderBatches)
         {
             batch.Material->Shader->Bind();
             batch.Material->Bind();
 
             batch.Mesh->GetVertexArray()->Bind();
-
-            Clear();
 
             for (auto& model : batch.Transforms)
             {

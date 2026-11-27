@@ -51,6 +51,8 @@ namespace Tungsten
         Renderer::SetClearColor(0.1f, 0.1f, 0.1f);
         while(mRunning)
         {
+            Renderer::Clear();
+
             Renderer::StartScene(MainCamera->GetViewProjection(), MainCamera->GetPosition());
             updateFunc();
 

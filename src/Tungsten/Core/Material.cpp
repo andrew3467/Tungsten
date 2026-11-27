@@ -7,15 +7,15 @@
 #include "Material.h"
 
 namespace Tungsten {
-    void Material::Bind() {
+    void Material::Bind() const
+    {
         Shader->Bind();
 
-        Shader->SetFloat3("uColor", Albedo);
+        Shader->SetFloat4("uColor", Albedo);
 
         Shader->SetFloat("uShininess", Shininess);
         Shader->SetFloat("uMetallic", Metallic);
         Shader->SetFloat("uRoughness", Roughness);
-
 
         Texture->Bind(0);
     }

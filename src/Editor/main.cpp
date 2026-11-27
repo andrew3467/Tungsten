@@ -12,6 +12,7 @@
 #include "CameraController.h"
 #include "imgui_internal.h"
 #include "Panel/EditorPanel.h"
+#include "Panel/TerrainNodePanel.h"
 #include "Panel/ViewportPanel.h"
 #include "Tungsten/Core/Primitive.h"
 
@@ -20,22 +21,29 @@ using namespace Tungsten;
 using namespace TungstenEditor;
 
 
-std::unique_ptr<CameraController> CamController;
-
-Material mat;
+static Material mat;
 
 static std::vector<EditorPanel*> EditorPanels;
 
+void UpdateEditorPanels()
+{
+    for (auto& panel : EditorPanels)
+    {
+        panel->OnUpdate();
+    }
+}
+
+
 void Start() {
-    CamController = std::make_unique<CameraController>(glm::vec3(0,0,-10));
-    mat.Shader = Engine::Get().Assets().Load<Shader>("shaders/Basic_Lit.glsl");
+    mat.Shader = Engine::Get().Assets().Load<Shader>("shaders/Basic_Unlit.glsl");
     mat.Texture = Texture2D::Get("Default");
 
     EditorPanels.push_back(new ViewportPanel());
+    EditorPanels.push_back(new TerrainNodePanel());
 }
 
 void Update() {
-    CamController->Update();
+    UpdateEditorPanels();
 
     Renderer::Submit(
           Primitive::Cube().get(),
@@ -46,8 +54,9 @@ void Update() {
 
 void OnImGuiRender() {
     ImGui::Begin("Debug");
-    if (ImGui::Button("Reset Docking Data")) ImGui::ClearIniSettings();
-    ImGui::ColorPicker3("Color", &mat.Albedo.x);
+
+    ImGui::ColorPicker4("Color", &mat.Albedo.x);
+
     ImGui::End();
 
     for (auto& panel : EditorPanels)

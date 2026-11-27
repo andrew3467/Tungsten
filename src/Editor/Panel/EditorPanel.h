@@ -13,7 +13,9 @@ namespace TungstenEditor
     public:
         virtual ~EditorPanel() = default;
 
-        virtual void OnRender() const = 0;
+        virtual void OnRender() = 0;
+        virtual void OnUpdate() = 0;
+
         virtual std::string GetName() const = 0;
     };
 }

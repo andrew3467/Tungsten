@@ -11,11 +11,16 @@
 TungstenEditor::ViewportPanel::ViewportPanel()
 {
     mFramebufferOutput = Tungsten::Engine::Get().Assets().Get<Tungsten::Texture2D>("FramebufferOutput");
+    mCamController = std::make_unique<CameraController>(glm::vec3(0,0,-10));
 }
 
-void TungstenEditor::ViewportPanel::OnRender() const
+void TungstenEditor::ViewportPanel::OnRender()
 {
-    ImGui::Begin("ViewportPanel");
+    ImGui::Begin(GetName().c_str());
+
+    mIsFocused = ImGui::IsWindowFocused();
+    mIsHovered = ImGui::IsWindowHovered();
+
     ImVec2 viewportSize = ImGui::GetContentRegionAvail();
 
     ImGui::Image(
@@ -32,6 +37,14 @@ void TungstenEditor::ViewportPanel::OnRender() const
     Tungsten::Engine::MainCamera->SetViewportSize(width, height);
 
     ImGui::End();
+}
+
+void TungstenEditor::ViewportPanel::OnUpdate()
+{
+    if (mIsFocused)
+    {
+        mCamController->Update();
+    }
 }
 
 std::string TungstenEditor::ViewportPanel::GetName() const

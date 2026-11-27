@@ -10,7 +10,7 @@
 
 namespace Tungsten {
     struct Material {
-        void Bind();
+        void Bind() const;
 
         std::shared_ptr<Shader> Shader;
         std::shared_ptr<Texture2D> Texture;
